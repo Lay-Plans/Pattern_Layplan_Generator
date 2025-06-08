@@ -1,3 +1,9 @@
+Pattern_Layplan_Generator/
+├── index.html
+├── style.css
+├── script.js
+├── README.md (optional)
+
 index.html
 <!DOCTYPE html>
 <html>
