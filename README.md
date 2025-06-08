@@ -70,13 +70,14 @@ document.getElementById('form').addEventListener('submit', function(e) {
   const chest = parseFloat(document.getElementById('chest').value);
   const waist = parseFloat(document.getElementById('waist').value);
   const hip = parseFloat(document.getElementById('hip').value);
+  const arm length = parseFloat(document.getElementById('hip').value);
 
   alert(`Generating a ${garment} pattern for:
 Chest: ${chest} cm
 Waist: ${waist} cm
 Hip: ${hip} cm`);
+Arm Length: ${hip} cm`);
 
-  // Placeholder: Insert garment-specific logic here
   if (garment === 'hoodie') {
     // Call hoodie pattern generator
     console.log('Generating hoodie pattern...');
