@@ -69,6 +69,7 @@ input, select, button {
   margin-bottom: 15px;
 }
 
+console.log("JavaScript loaded.");
 script.js
 document.getElementById('form').addEventListener('submit', function(e) {
   e.preventDefault();
