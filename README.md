@@ -37,7 +37,7 @@ index.html
 
     <button type="submit">Generate</button>
   </form>
-
+  <script src="script.js"></script>
 </body>
 </html>
 
