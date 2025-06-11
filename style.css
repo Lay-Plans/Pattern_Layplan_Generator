@@ -94,3 +94,36 @@ button {
 button:hover {
   background-color: #555;
 }
+/* Paste this at the bottom of style.css */
+.style-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 per row */
+  gap: 30px;
+  padding: 20px 0;
+}
+
+.style-option {
+  text-align: center;
+  font-family: 'Helvetica Neue', sans-serif;
+  transition: transform 0.2s ease-in-out;
+}
+
+.style-option img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.style-option img:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.style-option p {
+  margin-top: 10px;
+  font-size: 1rem;
+  color: #e1ad01; /* Mustard yellow */
+  font-weight: 600;
+}
