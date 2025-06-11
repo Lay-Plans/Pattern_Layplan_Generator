@@ -41,7 +41,6 @@ index.html
     <button type="submit">Generate</button>
   </form>
 
-  <script src="script.js"></script>
 </body>
 </html>
 
@@ -69,6 +68,7 @@ input, select, button {
   margin-bottom: 15px;
 }
 
+javascript
 console.log("JavaScript loaded.");
 script.js
 document.getElementById('form').addEventListener('submit', function(e) {
