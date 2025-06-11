@@ -1,6 +1,3 @@
-# Pattern_Layplan_Generator
-Generates PDF lay plans and sewing patterns from custom measurements.
-
 Pattern_Layplan_Generator/
 ├── index.html
 ├── style.css
