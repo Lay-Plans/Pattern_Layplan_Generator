@@ -1,12 +1,14 @@
+// Confirm script is running
 console.log("script.js is running");
 
+// Handle unexpected errors
+window.onerror = function(message, source, lineno, colno, error) {
+  alert("JavaScript error: " + message + "\nAt line: " + lineno);
+};
+
+// STYLES PER GARMENT CATEGORY
 const styles = {
   tops: [
-    const hoodieStyles = [
-  { name: "Pullover Hoodie", value: "hoodiePullover", img: "images/hoodie-pullover.jpg" },
-  { name: "Zip-Up Hoodie", value: "hoodieZip", img: "images/hoodie-zip.jpg" },
-  { name: "Oversized Hoodie", value: "hoodieOversized", img: "images/hoodie-oversized.jpg" }
-];
     { name: "Hoodie", value: "hoodie", img: "images/hoodie.jpg" },
     { name: "T-Shirt", value: "tshirt", img: "images/tshirt.jpg" },
     { name: "Blouse", value: "blouse", img: "images/blouse.jpg" }
@@ -26,6 +28,14 @@ const styles = {
   ]
 };
 
+// HOODIE STYLE OPTIONS
+const hoodieStyles = [
+  { name: "Pullover Hoodie", value: "hoodiePullover", img: "images/hoodie-pullover.jpg" },
+  { name: "Zip-Up Hoodie", value: "hoodieZip", img: "images/hoodie-zip.jpg" },
+  { name: "Oversized Hoodie", value: "hoodieOversized", img: "images/hoodie-oversized.jpg" }
+];
+
+// SHOW CATEGORY STYLES
 function showStyles(category) {
   document.getElementById('category-section').style.display = 'none';
   const container = document.getElementById('style-options');
@@ -43,8 +53,26 @@ function showStyles(category) {
   document.getElementById('style-section').style.display = 'block';
 }
 
+// SHOW HOODIE SUB-STYLES
+function showHoodieSubStyles() {
+  const container = document.getElementById('style-options');
+  container.innerHTML = '';
+
+  hoodieStyles.forEach(style => {
+    const img = document.createElement('img');
+    img.src = style.img;
+    img.alt = style.name;
+    img.className = 'style-image';
+    img.onclick = () => showMeasurements(style.value);
+    container.appendChild(img);
+  });
+
+  document.getElementById('style-section').style.display = 'block';
+}
+
+// SHOW MEASUREMENT FIELDS
 function showMeasurements(styleValue) {
-  // If hoodie is clicked, show hoodie styles instead
+  // Redirect hoodie base to hoodie substyles
   if (styleValue === "hoodie") {
     showHoodieSubStyles();
     return;
@@ -55,14 +83,16 @@ function showMeasurements(styleValue) {
   window.selectedStyle = styleValue;
 
   renderMeasurementFields(styleValue);
-}  hjkhg
+}
 
+// GO BACK TO CATEGORY SELECTION
 function goBackToCategories() {
   document.getElementById('measurement-section').style.display = 'none';
   document.getElementById('style-section').style.display = 'none';
   document.getElementById('category-section').style.display = 'block';
 }
 
+// RENDER MEASUREMENT INPUTS
 function renderMeasurementFields(style) {
   const fields = {
     chest: "Chest (cm)",
@@ -81,15 +111,12 @@ function renderMeasurementFields(style) {
   const lower = ["waist", "hip", "thigh", "calf", "ankle", "inseam"];
   const full = [...upper, ...lower];
 
-  const noInseam = ["shortDress", "longDress"];
-  const noAnkleForShortDress = ["shortDress"];
   const bottomsOnly = ["trousers", "shorts"];
-
   let result = [];
 
-  if (["hoodie", "tshirt", "blouse"].includes(style)) {
+  if (["hoodiePullover", "hoodieZip", "hoodieOversized", "tshirt", "blouse"].includes(style)) {
     result = [...upper];
-  } else if (["trousers", "shorts"].includes(style)) {
+  } else if (bottomsOnly.includes(style)) {
     result = [...lower];
   } else if (style === "shortDress") {
     result = full.filter(m => m !== "inseam" && m !== "ankle");
@@ -117,22 +144,7 @@ function renderMeasurementFields(style) {
   });
 }
 
-function showHoodieSubStyles() {
-  const container = document.getElementById('style-options');
-  container.innerHTML = '';
-
-  hoodieStyles.forEach(style => {
-    const img = document.createElement('img');
-    img.src = style.img;
-    img.alt = style.name;
-    img.className = 'style-image';
-    img.onclick = () => showMeasurements(style.value);
-    container.appendChild(img);
-  });
-
-  document.getElementById('style-section').style.display = 'block';
-}
-
+// FORM SUBMISSION HANDLER
 document.getElementById('form').addEventListener('submit', function(e) {
   e.preventDefault();
   alert(`Generating pattern for: ${window.selectedStyle}`);
