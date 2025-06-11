@@ -39,8 +39,8 @@ function showStyles(category) {
     img.src = style.img;
     img.alt = style.name;
     img.className = 'style-image';
-    img.onclick = () => alert(`You selected: ${style.name}`); // temporary test
-
+    img.onclick = () => showMeasurements(style.value);
+    
     const label = document.createElement('div');
     label.className = 'style-label';
     label.textContent = style.name;
