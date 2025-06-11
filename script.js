@@ -1,3 +1,5 @@
+console.log("script.js is running");
+
 const styles = {
   tops: [
     const hoodieStyles = [
