@@ -1,27 +1,4 @@
-// Confirm script is running
-console.log("script.js is running");
 
-// Handle unexpected errors
-window.onerror = function(message, source, lineno, colno, error) {
-  alert("JavaScript error: " + message + "\nAt line: " + lineno);
-};
-
-// STYLES PER GARMENT CATEGORY
-const styles = {
-  tops: [
-    { name: "Hoodie", value: "hoodie", img: "images/hoodie.jpg" },
-    { name: "T-Shirt", value: "tshirt", img: "images/tshirt.jpg" },
-    { name: "Blouse", value: "blouse", img: "images/blouse.jpg" }
-  ],
-  bottoms: [
-    { name: "Trousers", value: "trousers", img: "images/trousers.jpg" },
-    { name: "Shorts", value: "shorts", img: "images/shorts.jpg" }
-  ],
-  dresses: [
-    { name: "Short Dress", value: "shortDress", img: "images/shortdress.jpg" },
-    { name: "Long Dress", value: "longDress", img: "images/longdress.jpg" }
-  ],
-  fullbody: [
     { name: "Overalls", value: "overalls", img: "images/overalls.jpg" },
     { name: "Playsuit", value: "playsuit", img: "images/playsuit.jpg" },
     { name: "Suit", value: "suit", img: "images/suit.jpg" }
