@@ -15,3 +15,4 @@ Arm Length: ${armLength} cm`);
 });
 
 added new script.js file
+alert("Your JavaScript file is connected and working!");
