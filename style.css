@@ -64,7 +64,6 @@ h1, h2 {
   transition: box-shadow 0.3s ease-in-out, transform 0.2s ease;
   cursor: pointer;
 }
-}
 
 .style-image:hover {
   transform: scale(1.05);
