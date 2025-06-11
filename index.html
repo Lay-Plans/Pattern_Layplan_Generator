@@ -6,38 +6,32 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Garment Lay Plan</h1>
 
-  <form id="form">
-    <label for="garment">Select garment type:</label>
-    <select id="garment" name="garment">
-      <option value="hoodie">Hoodie</option>
-      <option value="trousers">Trousers</option>
-      <option value="shirt">Shirt</option>
-    </select>
-
-    <div>
-      <label for="chest">Chest (cm):</label>
-      <input type="number" id="chest" name="chest">
+  <!-- SECTION 1: Category Selection -->
+  <section id="category-section">
+    <h1>Select a Garment Category</h1>
+    <div class="category-grid">
+      <button onclick="showStyles('tops')">Tops</button>
+      <button onclick="showStyles('bottoms')">Bottoms</button>
+      <button onclick="showStyles('dresses')">Dresses</button>
+      <button onclick="showStyles('fullbody')">Full Body</button>
     </div>
+  </section>
 
-    <div>
-      <label for="waist">Waist (cm):</label>
-      <input type="number" id="waist" name="waist">
-    </div>
+  <!-- SECTION 2: Style Selection (thumbnails) -->
+  <section id="style-section" style="display: none;">
+    <h2>Choose a Style</h2>
+    <div class="style-grid" id="style-options"></div>
+  </section>
 
-    <div>
-      <label for="hip">Hip (cm):</label>
-      <input type="number" id="hip" name="hip">
-    </div>
-
-    <div>
-      <label for="armLength">Arm Length (cm):</label>
-      <input type="number" id="armLength" name="armLength">
-    </div>
-
-    <button type="submit">Generate</button>
-  </form>
+  <!-- SECTION 3: Measurements -->
+  <section id="measurement-section" style="display: none;">
+    <h2>Enter Your Measurements</h2>
+    <form id="form">
+      <div id="measurement-fields"></div>
+      <button type="submit">Generate Pattern</button>
+    </form>
+  </section>
 
   <script src="script.js"></script>
 </body>
