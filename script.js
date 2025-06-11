@@ -113,18 +113,51 @@ function goBackToCategories() {
 
 // Measurement logic
 function renderMeasurementFields(style) {
+  // Define all fields
   const fields = {
-    chest: "Chest (cm)",
+    neck: "Neck Circumference (cm)",
     shoulder: "Shoulder Width (cm)",
+    chest: "Chest Circumference (cm)",
     armLength: "Arm Length (cm)",
-    waist: "Waist (cm)",
-    hip: "Hip (cm)",
-    inseam: "Inseam (Inside Leg) (cm)",
-    thigh: "Thigh Circumference (cm)",
-    calf: "Calf Circumference (cm)",
-    ankle: "Ankle Circumference (cm)",
-    neck: "Neck Circumference (cm)"
+    bicep: "Bicep Circumference (cm)",
+    wrist: "Wrist Circumference (cm)",
+    hoodieLength: "Hoodie Length (cm)",
+    waist: "Waist Circumference (cm)", // optional
+    hip: "Hip Circumference (cm)"      // optional
   };
+
+  // Pullover hoodie measurement set
+  const hoodieMeasurements = [
+    "neck",
+    "shoulder",
+    "chest",
+    "armLength",
+    "bicep",
+    "wrist",
+    "hoodieLength",
+    "waist",   // optional
+    "hip"      // optional
+  ];
+
+  if (
+    style === "hoodiePullover" ||
+    style === "hoodieZip" ||
+    style === "hoodieOversized"
+  ) {
+    const container = document.getElementById('measurement-fields');
+    container.innerHTML = '';
+
+    hoodieMeasurements.forEach(id => {
+      const div = document.createElement('div');
+      div.className = 'measure';
+      div.innerHTML = `
+        <label for="${id}">${fields[id]}</label>
+        <input type="number" id="${id}" name="${id}" required>
+      `;
+      container.appendChild(div);
+    });
+  }
+}
 
   const upper = ["chest", "shoulder", "armLength", "waist", "neck"];
   const lower = ["waist", "hip", "thigh", "calf", "ankle", "inseam"];
