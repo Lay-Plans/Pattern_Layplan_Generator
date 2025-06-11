@@ -25,42 +25,55 @@ h1, h2 {
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  background-color: #eee;
+  transition: background-color 0.2s ease;
 }
 
-/* Style image grid */
+.category-grid button:hover {
+  background-color: #ddd;
+}
+
+/* Style image grid layout */
 .style-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2 items per row */
-  gap: 20px;
+  grid-template-columns: repeat(2, 1fr); /* 2 per row */
+  gap: 30px;
+  padding: 20px 0;
   justify-items: center;
-  margin-bottom: 30px;
 }
 
+/* Container for each image and label */
+.style-container {
+  text-align: center;
+  font-family: 'Helvetica Neue', sans-serif;
+  transition: transform 0.2s ease-in-out;
+}
+
+/* Image styling */
 .style-image {
   width: 100%;
   max-width: 180px;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-  border: 2px solid #333;
-  border-radius: 8px;
+  height: auto;
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease-in-out, transform 0.2s ease;
   cursor: pointer;
-  transition: transform 0.2s;
 }
 
 .style-image:hover {
   transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
-/* Style names below each image */
-.style-grid div {
-  text-align: center;
-}
-
+/* Text label under each image */
 .style-label {
-  margin-top: 8px;
-  font-size: 14px;
-  color: #b8860b; /* Mustard colour */
-  font-family: sans-serif;
+  margin-top: 10px;
+  font-size: 1rem;
+  color: #e1ad01; /* Mustard */
+  font-weight: 600;
 }
 
 /* Measurement form */
@@ -76,6 +89,8 @@ input[type="number"] {
   margin-top: 5px;
   margin-bottom: 15px;
   box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 button[type="submit"],
@@ -93,38 +108,4 @@ button {
 
 button:hover {
   background-color: #555;
-}
-
-/* Paste this at the bottom of style.css */
-.style-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2 per row */
-  gap: 30px;
-  padding: 20px 0;
-}
-
-.style-option {
-  text-align: center;
-  font-family: 'Helvetica Neue', sans-serif;
-  transition: transform 0.2s ease-in-out;
-}
-
-.style-option img {
-  width: 100%;
-  height: auto;
-  object-fit: contain;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s ease-in-out;
-}
-
-.style-option img:hover {
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-}
-
-.style-option p {
-  margin-top: 10px;
-  font-size: 1rem;
-  color: #e1ad01; /* Mustard yellow */
-  font-weight: 600;
 }
