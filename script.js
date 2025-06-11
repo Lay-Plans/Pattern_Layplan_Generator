@@ -42,12 +42,18 @@ function showStyles(category) {
 }
 
 function showMeasurements(styleValue) {
+  // If hoodie is clicked, show hoodie styles instead
+  if (styleValue === "hoodie") {
+    showHoodieSubStyles();
+    return;
+  }
+
   document.getElementById('style-section').style.display = 'none';
   document.getElementById('measurement-section').style.display = 'block';
   window.selectedStyle = styleValue;
 
   renderMeasurementFields(styleValue);
-}
+}  hjkhg
 
 function goBackToCategories() {
   document.getElementById('measurement-section').style.display = 'none';
@@ -107,6 +113,22 @@ function renderMeasurementFields(style) {
     `;
     container.appendChild(div);
   });
+}
+
+function showHoodieSubStyles() {
+  const container = document.getElementById('style-options');
+  container.innerHTML = '';
+
+  hoodieStyles.forEach(style => {
+    const img = document.createElement('img');
+    img.src = style.img;
+    img.alt = style.name;
+    img.className = 'style-image';
+    img.onclick = () => showMeasurements(style.value);
+    container.appendChild(img);
+  });
+
+  document.getElementById('style-section').style.display = 'block';
 }
 
 document.getElementById('form').addEventListener('submit', function(e) {
