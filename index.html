@@ -18,15 +18,17 @@
     </div>
   </section>
 
-  <!-- SECTION 2: Style Selection (thumbnails) -->
+  <!-- SECTION 2: Style Selection -->
   <section id="style-section" style="display: none;">
     <h2>Choose a Style</h2>
     <div class="style-grid" id="style-options"></div>
+    <button onclick="goBackToCategories()">← Back</button>
   </section>
 
-  <!-- SECTION 3: Measurements -->
+  <!-- SECTION 3: Measurement Form -->
   <section id="measurement-section" style="display: none;">
     <h2>Enter Your Measurements</h2>
+    <button onclick="goBackToCategories()">← Back</button>
     <form id="form">
       <div id="measurement-fields"></div>
       <button type="submit">Generate Pattern</button>
