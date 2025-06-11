@@ -1,5 +1,10 @@
 const styles = {
   tops: [
+    const hoodieStyles = [
+  { name: "Pullover Hoodie", value: "hoodiePullover", img: "images/hoodie-pullover.jpg" },
+  { name: "Zip-Up Hoodie", value: "hoodieZip", img: "images/hoodie-zip.jpg" },
+  { name: "Oversized Hoodie", value: "hoodieOversized", img: "images/hoodie-oversized.jpg" }
+];
     { name: "Hoodie", value: "hoodie", img: "images/hoodie.jpg" },
     { name: "T-Shirt", value: "tshirt", img: "images/tshirt.jpg" },
     { name: "Blouse", value: "blouse", img: "images/blouse.jpg" }
