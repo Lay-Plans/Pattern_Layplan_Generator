@@ -1,24 +1,11 @@
-def generate_hoodie_pattern(measurements):
-    import pandas as pd
-
-    pattern_data = [
-        {
-            "Pattern Piece": "Front Bodice",
-            "Dimensions (W x H, cm)": f"{round(measurements['chest'] / 2 + 4, 1)} x {measurements['hoodieLength']}"
-        },
-        ...
-    ]
-
-    return pd.DataFrame(pattern_data)
-
-from fpdf import FPDF
 import pandas as pd
+from fpdf import FPDF
 
-# Define user and garment info
+# User and garment metadata
 user_name = "Jamila Henry"
 garment_style = "Pullover Hoodie"
 
-# Example body measurements in cm
+# Example user measurements in cm
 measurements = {
     "chest": 96,
     "shoulder": 42,
@@ -33,7 +20,7 @@ measurements = {
     "headHeight": 24
 }
 
-# Define pattern pieces with cutting notes and other details
+# Define pattern piece calculations and notes
 pattern_data = [
     {
         "Pattern Piece": "Front Bodice",
@@ -93,10 +80,10 @@ pattern_data = [
     }
 ]
 
-# Create DataFrame
+# Convert to DataFrame
 df = pd.DataFrame(pattern_data)
 
-# Generate PDF
+# Generate PDF output
 pdf = FPDF()
 pdf.add_page()
 pdf.set_font("Arial", "B", 16)
@@ -125,8 +112,9 @@ for item in pattern_data:
     pdf.cell(35, 10, item["Notches"], border=1)
     pdf.ln()
 
-# Save PDF
+# Save to file
 pdf_filename = "/mnt/data/pullover_hoodie_pattern_specification.pdf"
 pdf.output(pdf_filename)
 
+# Show DataFrame (for debugging or frontend display)
 df
