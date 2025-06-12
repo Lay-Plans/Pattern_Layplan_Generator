@@ -1,14 +1,12 @@
-from flask import Flask, request, render_template, jsonify
-from generate_pattern import generate_hoodie_pattern
+def generate_hoodie_pattern(measurements):
+    import pandas as pd
 
-app = Flask(__name__)
+    pattern_data = [
+        {
+            "Pattern Piece": "Front Bodice",
+            "Dimensions (W x H, cm)": f"{round(measurements['chest'] / 2 + 4, 1)} x {measurements['hoodieLength']}"
+        },
+        ...
+    ]
 
-@app.route('/')
-def home():
-    return render_template('index.html')
-
-@app.route('/generate', methods=['POST'])
-def generate():
-    data = request.json  # incoming measurements
-    pattern = generate_hoodie_pattern(data)  # call your code
-    return jsonify(pattern.to_dict(orient="records"))
+    return pd.DataFrame(pattern_data)
