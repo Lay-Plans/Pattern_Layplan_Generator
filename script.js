@@ -159,3 +159,32 @@ document.getElementById('form').addEventListener('submit', function(e) {
   e.preventDefault();
   alert(`Generating pattern for: ${window.selectedStyle}`);
 });
+
+document.getElementById('form').addEventListener('submit', function (e) {
+  e.preventDefault();
+
+  const formData = new FormData(e.target);
+  const measurements = {};
+
+  formData.forEach((value, key) => {
+    measurements[key] = value;
+  });
+
+  fetch('http://localhost:5000/generate-pattern', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(measurements)
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log('Pattern:', data);
+    alert('Pattern generated successfully. Check console for details.');
+    // You can update your UI to display the result in a table here
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    alert('There was an error generating the pattern.');
+  });
+});
