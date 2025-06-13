@@ -178,15 +178,25 @@ document.getElementById('form').addEventListener('submit', function (e) {
     },
     body: JSON.stringify(measurements)
   })
-    .then(response => response.json())
     .then(data => {
-      // Display or handle the result
-      console.log("Pattern Data:", data);
-      alert("Pattern generated successfully!");
-      // Optionally: render the pattern data on the page
-    })
-    .catch(error => {
-      console.error("Error generating pattern:", error);
-      alert("An error occurred while generating the pattern.");
-    });
-});
+  console.log("Pattern Data:", data);
+
+  // Hide the form and show the pattern output
+  document.getElementById('measurement-section').style.display = 'none';
+  document.getElementById('pattern-output-section').style.display = 'block';
+
+  const tbody = document.querySelector('#pattern-table tbody');
+  tbody.innerHTML = '';
+
+  data.forEach(piece => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${piece["Pattern Piece"]}</td>
+      <td>${piece["Dimensions"] || piece["Dimensions (W x H, cm)"]}</td>
+      <td>${piece["Cutting Notes"] || "—"}</td>
+      <td>${piece["Grainline"] || "—"}</td>
+      <td>${piece["Notches"] || "—"}</td>
+    `;
+    tbody.appendChild(row);
+  });
+})
