@@ -155,36 +155,38 @@ function renderMeasurementFields(style) {
 }
 
 // Handle form submission
-document.getElementById('form').addEventListener('submit', function(e) {
-  e.preventDefault();
-  alert(`Generating pattern for: ${window.selectedStyle}`);
-});
-
 document.getElementById('form').addEventListener('submit', function (e) {
   e.preventDefault();
 
-  const formData = new FormData(e.target);
+  // Gather all measurement inputs
+  const formElements = document.querySelectorAll('#measurement-fields input');
   const measurements = {};
 
-  formData.forEach((value, key) => {
-    measurements[key] = value;
+  formElements.forEach(input => {
+    const key = input.name;
+    const value = parseFloat(input.value);
+    if (!isNaN(value)) {
+      measurements[key] = value;
+    }
   });
 
-  fetch('http://localhost:5000/generate-pattern', {
+  // Send the measurements to Flask backend
+  fetch('/generate', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(measurements)
   })
-  .then(response => response.json())
-  .then(data => {
-    console.log('Pattern:', data);
-    alert('Pattern generated successfully. Check console for details.');
-    // You can update your UI to display the result in a table here
-  })
-  .catch(error => {
-    console.error('Error:', error);
-    alert('There was an error generating the pattern.');
-  });
+    .then(response => response.json())
+    .then(data => {
+      // Display or handle the result
+      console.log("Pattern Data:", data);
+      alert("Pattern generated successfully!");
+      // Optionally: render the pattern data on the page
+    })
+    .catch(error => {
+      console.error("Error generating pattern:", error);
+      alert("An error occurred while generating the pattern.");
+    });
 });
