@@ -74,3 +74,27 @@ def generate_pattern():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+from flask import Flask, render_template, request, send_file
+from generate_pattern import generate_pattern  # assuming this will be used later
+
+app = Flask(__name__)
+
+# Route to show the main page
+@app.route('/')
+def home():
+    return render_template('index.html')
+
+# Route to handle measurement submission
+@app.route('/generate', methods=['POST'])
+def generate():
+    # Extract measurements from the form
+    measurements = {key: float(request.form[key]) for key in request.form}
+
+    # TODO: Use generate_pattern(measurements) to generate PDF
+    # For now, just return the values for confirmation
+    return f"<h2>Pattern requested with measurements:</h2><pre>{measurements}</pre>"
+
+# Run the server
+if __name__ == '__main__':
+    app.run(debug=True)
