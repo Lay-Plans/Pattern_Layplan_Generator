@@ -199,4 +199,8 @@ document.getElementById('form').addEventListener('submit', function (e) {
     `;
     tbody.appendChild(row);
   });
+      function goBackToMeasurements() {
+  document.getElementById('pattern-output-section').style.display = 'none';
+  document.getElementById('measurement-section').style.display = 'block';
+}
 })
