@@ -113,10 +113,7 @@ function renderMeasurementFields(style) {
     headHeight: "Head Height(cm)"
   };
 
-  const hoodieMeasurements = [
-    "neck", "shoulder", "chest", "armLength", "bicep",
-    "wrist", "hoodieLength", "waist", "hip", "neckHeight", "headHeight"
-  ];
+  const hoodieMeasurements = Object.keys(fields);
 
   const container = document.getElementById('measurement-fields');
   container.innerHTML = '';
@@ -140,10 +137,9 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById('form').addEventListener('submit', function (e) {
     e.preventDefault();
 
-    // ✅ Collect measurements first
+    // ✅ Capture measurements
     const formElements = document.querySelectorAll('#measurement-fields input');
     const measurements = {};
-
     formElements.forEach(input => {
       const key = input.name;
       const value = parseFloat(input.value);
@@ -152,7 +148,9 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    // ✅ Use them to build pattern data
+    console.log("Measurements received:", measurements);
+
+    // ✅ Construct pattern data using measurements
     const data = [
       {
         "Pattern Piece": "Front Panel",
@@ -212,6 +210,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     ];
 
+    // ✅ Update display
     document.getElementById('measurement-section').style.display = 'none';
     document.getElementById('pattern-output-section').style.display = 'block';
 
@@ -230,12 +229,11 @@ document.addEventListener("DOMContentLoaded", () => {
       tbody.appendChild(row);
     });
 
-    console.log("Sending this to drawPattern:", data);
     drawPattern(data);
   });
 });
 
-// ✅ SVG Drawing Function
+// ✅ Draw SVG Lay Plan
 function drawPattern(data) {
   const svg = document.getElementById('pattern-svg');
   svg.innerHTML = ''; // Clear old drawings
@@ -246,12 +244,12 @@ function drawPattern(data) {
     const match = piece.Dimensions.match(/(\d+(?:\.\d+)?)\s*x\s*(\d+(?:\.\d+)?)/);
     if (!match) return;
 
-    const width = parseFloat(match[1]) * 10;   // Convert cm to mm
+    const width = parseFloat(match[1]) * 10;   // cm to mm scale
     const height = parseFloat(match[2]) * 10;
 
     const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
     rect.setAttribute("x", xOffset);
-    rect.setAttribute("y", 30);
+    rect.setAttribute("y", 40);
     rect.setAttribute("width", width);
     rect.setAttribute("height", height);
     rect.setAttribute("fill", "#d8eaff");
@@ -259,7 +257,7 @@ function drawPattern(data) {
 
     const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
     label.setAttribute("x", xOffset + 5);
-    label.setAttribute("y", 25);
+    label.setAttribute("y", 30);
     label.setAttribute("font-size", "12");
     label.textContent = piece["Pattern Piece"];
 
