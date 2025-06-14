@@ -153,21 +153,22 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     const data = [
-      {
-        "Pattern Piece": "Front Panel",
-        "Dimensions": `${measurements.chest || 0} x ${measurements.hoodieLength || 0} cm`,
-        "Cutting Notes": "Cut 1 on fold",
-        "Grainline": "Vertical",
-        "Notches": "Shoulder, Side Seam"
-      },
-      {
-        "Pattern Piece": "Sleeve",
-        "Dimensions": `${measurements.armLength || 0} x ${measurements.bicep || 0} cm`,
-        "Cutting Notes": "Cut 2",
-        "Grainline": "Along arm",
-        "Notches": "Armhole"
-      }
-    ];
+  {
+    "Pattern Piece": "Front Panel",
+    "Dimensions": "50 x 70 cm",
+    "Cutting Notes": "Cut 1 on fold",
+    "Grainline": "Vertical",
+    "Notches": "Shoulder, Side Seam"
+  },
+  {
+    "Pattern Piece": "Sleeve",
+    "Dimensions": "60 x 25 cm",
+    "Cutting Notes": "Cut 2",
+    "Grainline": "Along arm",
+    "Notches": "Armhole"
+  }
+];
+
 
     document.getElementById('measurement-section').style.display = 'none';
     document.getElementById('pattern-output-section').style.display = 'block';
