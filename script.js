@@ -137,7 +137,6 @@ function renderMeasurementFields(style) {
   }
 }
 
-// FORM HANDLER (no Flask)
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById('form').addEventListener('submit', function (e) {
     e.preventDefault();
@@ -187,5 +186,43 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
       tbody.appendChild(row);
     });
+
+    // ✅ Call the SVG renderer
+    drawPattern(data);
   });
 });
+
+// ✅ Draw SVG Lay Plan
+function drawPattern(data) {
+  const svg = document.getElementById('pattern-svg');
+  svg.innerHTML = ''; // Clear old drawings
+
+  let xOffset = 10;
+
+  data.forEach(piece => {
+    const match = piece.Dimensions.match(/(\d+(?:\.\d+)?)\s*x\s*(\d+(?:\.\d+)?)/);
+    if (!match) return;
+
+    const width = parseFloat(match[1]) * 10;   // Convert cm to mm
+    const height = parseFloat(match[2]) * 10;
+
+    const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+    rect.setAttribute("x", xOffset);
+    rect.setAttribute("y", 30);
+    rect.setAttribute("width", width);
+    rect.setAttribute("height", height);
+    rect.setAttribute("fill", "#d8eaff");
+    rect.setAttribute("stroke", "#000");
+
+    const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    label.setAttribute("x", xOffset + 5);
+    label.setAttribute("y", 25);
+    label.setAttribute("font-size", "12");
+    label.textContent = piece["Pattern Piece"];
+
+    svg.appendChild(rect);
+    svg.appendChild(label);
+
+    xOffset += width + 20;
+  });
+}
