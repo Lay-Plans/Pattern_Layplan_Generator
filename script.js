@@ -140,65 +140,77 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById('form').addEventListener('submit', function (e) {
     e.preventDefault();
 
-    const data = [
-  {
-    "Pattern Piece": "Front Panel",
-    "Dimensions": `${measurements.chest || 0} x ${measurements.hoodieLength || 0} cm`,
-    "Cutting Notes": "Cut 1 on fold",
-    "Grainline": "Vertical",
-    "Notches": "Shoulder, Side Seam"
-  },
-  {
-    "Pattern Piece": "Back Panel",
-    "Dimensions": `${measurements.chest || 0} x ${measurements.hoodieLength || 0} cm`,
-    "Cutting Notes": "Cut 1 on fold",
-    "Grainline": "Vertical",
-    "Notches": "Shoulder, Side Seam"
-  },
-  {
-    "Pattern Piece": "Sleeve",
-    "Dimensions": `${measurements.armLength || 0} x ${measurements.bicep || 0} cm`,
-    "Cutting Notes": "Cut 2",
-    "Grainline": "Along arm",
-    "Notches": "Armhole"
-  },
-  {
-    "Pattern Piece": "Cuff",
-    "Dimensions": `${(measurements.wrist || 0) * 0.9} x 8 cm`,
-    "Cutting Notes": "Cut 2",
-    "Grainline": "Stretch direction",
-    "Notches": "-"
-  },
-  {
-    "Pattern Piece": "Waistband",
-    "Dimensions": `${(measurements.hip || 0) * 0.9} x 10 cm`,
-    "Cutting Notes": "Cut 1",
-    "Grainline": "Stretch direction",
-    "Notches": "-"
-  },
-  {
-    "Pattern Piece": "Hood Side",
-    "Dimensions": `${(measurements.neckHeight || 0) * 2} x ${measurements.headHeight || 0} cm`,
-    "Cutting Notes": "Cut 2",
-    "Grainline": "Vertical",
-    "Notches": "Back seam"
-  },
-  {
-    "Pattern Piece": "Hood Centre Strip",
-    "Dimensions": `10 x ${measurements.headHeight || 0} cm`,
-    "Cutting Notes": "Cut 1",
-    "Grainline": "Long edge",
-    "Notches": "Centre front, back"
-  },
-  {
-    "Pattern Piece": "Pocket",
-    "Dimensions": `${(measurements.chest || 0) * 0.6} x 20 cm`,
-    "Cutting Notes": "Cut 1",
-    "Grainline": "Vertical",
-    "Notches": "-"
-  }
-];
+    // ✅ Collect measurements first
+    const formElements = document.querySelectorAll('#measurement-fields input');
+    const measurements = {};
 
+    formElements.forEach(input => {
+      const key = input.name;
+      const value = parseFloat(input.value);
+      if (!isNaN(value)) {
+        measurements[key] = value;
+      }
+    });
+
+    // ✅ Use them to build pattern data
+    const data = [
+      {
+        "Pattern Piece": "Front Panel",
+        "Dimensions": `${measurements.chest || 0} x ${measurements.hoodieLength || 0} cm`,
+        "Cutting Notes": "Cut 1 on fold",
+        "Grainline": "Vertical",
+        "Notches": "Shoulder, Side Seam"
+      },
+      {
+        "Pattern Piece": "Back Panel",
+        "Dimensions": `${measurements.chest || 0} x ${measurements.hoodieLength || 0} cm`,
+        "Cutting Notes": "Cut 1 on fold",
+        "Grainline": "Vertical",
+        "Notches": "Shoulder, Side Seam"
+      },
+      {
+        "Pattern Piece": "Sleeve",
+        "Dimensions": `${measurements.armLength || 0} x ${measurements.bicep || 0} cm`,
+        "Cutting Notes": "Cut 2",
+        "Grainline": "Along arm",
+        "Notches": "Armhole"
+      },
+      {
+        "Pattern Piece": "Cuff",
+        "Dimensions": `${(measurements.wrist || 0) * 0.9} x 8 cm`,
+        "Cutting Notes": "Cut 2",
+        "Grainline": "Stretch direction",
+        "Notches": "-"
+      },
+      {
+        "Pattern Piece": "Waistband",
+        "Dimensions": `${(measurements.hip || 0) * 0.9} x 10 cm`,
+        "Cutting Notes": "Cut 1",
+        "Grainline": "Stretch direction",
+        "Notches": "-"
+      },
+      {
+        "Pattern Piece": "Hood Side",
+        "Dimensions": `${(measurements.neckHeight || 0) * 2} x ${measurements.headHeight || 0} cm`,
+        "Cutting Notes": "Cut 2",
+        "Grainline": "Vertical",
+        "Notches": "Back seam"
+      },
+      {
+        "Pattern Piece": "Hood Centre Strip",
+        "Dimensions": `10 x ${measurements.headHeight || 0} cm`,
+        "Cutting Notes": "Cut 1",
+        "Grainline": "Long edge",
+        "Notches": "Centre front, back"
+      },
+      {
+        "Pattern Piece": "Pocket",
+        "Dimensions": `${(measurements.chest || 0) * 0.6} x 20 cm`,
+        "Cutting Notes": "Cut 1",
+        "Grainline": "Vertical",
+        "Notches": "-"
+      }
+    ];
 
     document.getElementById('measurement-section').style.display = 'none';
     document.getElementById('pattern-output-section').style.display = 'block';
@@ -223,6 +235,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+// ✅ SVG Drawing Function
 function drawPattern(data) {
   const svg = document.getElementById('pattern-svg');
   svg.innerHTML = ''; // Clear old drawings
