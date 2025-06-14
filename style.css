@@ -1,37 +1,90 @@
+/* Reset and base styles */
 body {
-  font-family: sans-serif;
-  background: #fdfdfd;
-  padding: 2rem;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color: #f4f4f4;
+  color: #333;
 }
 
-button {
-  padding: 0.6rem 1.2rem;
-  margin: 0.5rem;
-  font-size: 1rem;
+h1, h2, h3 {
+  text-align: center;
+  margin-bottom: 20px;
 }
 
-.category-grid,
-.style-grid,
-.button-group {
+/* Section layout */
+section {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Category Grid */
+.category-grid {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.category-grid button {
+  padding: 15px 30px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #4682B4;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  transition: background 0.3s ease;
+}
+
+.category-grid button:hover {
+  background-color: #315f86;
+}
+
+/* Style grid */
+.style-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
-  margin-top: 1rem;
+  justify-content: center;
+  gap: 20px;
 }
 
 .style-container {
-  width: 150px;
   text-align: center;
-  cursor: pointer;
 }
 
 .style-image {
-  width: 100%;
-  height: auto;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 2px solid #ccc;
+  cursor: pointer;
+  transition: transform 0.3s ease;
 }
 
-.measure {
-  margin-bottom: 1rem;
+.style-image:hover {
+  transform: scale(1.05);
 }
+
+.style-label {
+  margin-top: 8px;
+  font-weight: bold;
+}
+
+/* Measurement form */
+.measure {
+  margin-bottom: 15px;
+}
+
+.measure label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.measure input {
+  width: 10
