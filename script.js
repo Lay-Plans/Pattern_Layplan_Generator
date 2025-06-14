@@ -20,7 +20,6 @@ const hoodieStyles = [
 ];
 
 function showStyles(category) {
-  console.log("Category selected:", category);
   document.getElementById('category-section').style.display = 'none';
 
   const container = document.getElementById('style-options');
@@ -141,34 +140,23 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById('form').addEventListener('submit', function (e) {
     e.preventDefault();
 
-    const formElements = document.querySelectorAll('#measurement-fields input');
-    const measurements = {};
-
-    formElements.forEach(input => {
-      const key = input.name;
-      const value = parseFloat(input.value);
-      if (!isNaN(value)) {
-        measurements[key] = value;
-      }
-    });
-
+    // HARDCODED TEST — REMOVE THIS BLOCK LATER
     const data = [
-  {
-    "Pattern Piece": "Front Panel",
-    "Dimensions": "50 x 70 cm",
-    "Cutting Notes": "Cut 1 on fold",
-    "Grainline": "Vertical",
-    "Notches": "Shoulder, Side Seam"
-  },
-  {
-    "Pattern Piece": "Sleeve",
-    "Dimensions": "60 x 25 cm",
-    "Cutting Notes": "Cut 2",
-    "Grainline": "Along arm",
-    "Notches": "Armhole"
-  }
-];
-
+      {
+        "Pattern Piece": "Front Panel",
+        "Dimensions": "50 x 70 cm",
+        "Cutting Notes": "Cut 1 on fold",
+        "Grainline": "Vertical",
+        "Notches": "Shoulder, Side Seam"
+      },
+      {
+        "Pattern Piece": "Sleeve",
+        "Dimensions": "60 x 25 cm",
+        "Cutting Notes": "Cut 2",
+        "Grainline": "Along arm",
+        "Notches": "Armhole"
+      }
+    ];
 
     document.getElementById('measurement-section').style.display = 'none';
     document.getElementById('pattern-output-section').style.display = 'block';
@@ -188,12 +176,11 @@ document.addEventListener("DOMContentLoaded", () => {
       tbody.appendChild(row);
     });
 
-    // ✅ Call the SVG renderer
+    console.log("Sending this to drawPattern:", data);
     drawPattern(data);
   });
 });
 
-// ✅ Draw SVG Lay Plan
 function drawPattern(data) {
   const svg = document.getElementById('pattern-svg');
   svg.innerHTML = ''; // Clear old drawings
