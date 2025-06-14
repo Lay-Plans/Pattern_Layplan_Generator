@@ -8,15 +8,15 @@
 <body>
 
   <!-- SECTION 1: Category Selection -->
-<section id="category-section">
-  <h1>Select a Garment Category</h1>
-  <div class="category-grid">
-    <button onclick="showStyles('tops')">Tops</button>
-    <button onclick="showStyles('bottoms')">Bottoms</button>
-    <button onclick="showStyles('dresses')">Dresses</button>
-    <button onclick="showStyles('fullbody')">Full Body</button>
-  </div>
-</section>
+  <section id="category-section">
+    <h1>Select a Garment Category</h1>
+    <div class="category-grid">
+      <button onclick="showStyles('tops')">Tops</button>
+      <button onclick="showStyles('bottoms')">Bottoms</button>
+      <button onclick="showStyles('dresses')">Dresses</button>
+      <button onclick="showStyles('fullbody')">Full Body</button>
+    </div>
+  </section>
 
   <!-- SECTION 2: Style Selection -->
   <section id="style-section" style="display: none;">
@@ -36,25 +36,25 @@
   </section>
 
   <!-- SECTION 4: Pattern Output -->
-<section id="pattern-output-section" style="display: none;">
-  <h2>Generated Pattern Pieces</h2>
-  <div class="button-group">
-  <button onclick="goBackToMeasurements()">← Back to Measurements</button>
-  <button onclick="goBackToCategories()">← Start Over</button>
-</div>
-  <table id="pattern-table">
-    <thead>
-      <tr>
-        <th>Pattern Piece</th>
-        <th>Dimensions</th>
-        <th>Cutting Notes</th>
-        <th>Grainline</th>
-        <th>Notches</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
-</section>
+  <section id="pattern-output-section" style="display: none;">
+    <h2>Generated Pattern Pieces</h2>
+    <div class="button-group">
+      <button onclick="goBackToMeasurements()">← Back to Measurements</button>
+      <button onclick="goBackToCategories()">← Start Over</button>
+    </div>
+    <table id="pattern-table">
+      <thead>
+        <tr>
+          <th>Pattern Piece</th>
+          <th>Dimensions</th>
+          <th>Cutting Notes</th>
+          <th>Grainline</th>
+          <th>Notches</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </section>
 
   <script src="script.js"></script>
 </body>

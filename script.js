@@ -1,7 +1,5 @@
-// Confirm script is running
 console.log("script.js is running");
 
-// STYLES PER GARMENT CATEGORY
 const styles = {
   tops: [
     { name: "Hoodie", value: "hoodie", img: "images/hoodie.jpg" },
@@ -9,30 +7,22 @@ const styles = {
     { name: "Blouse", value: "blouse", img: "images/blouse.jpg" }
   ],
   bottoms: [
-    { name: "Trousers", value: "trousers", img: "images/trousers.jpg" },
-    { name: "Shorts", value: "shorts", img: "images/shorts.jpg" }
+    { name: "Trousers", value: "trousers", img: "images/trousers.jpg" }
   ],
-  dresses: [
-    { name: "Short Dress", value: "shortDress", img: "images/shortdress.jpg" },
-    { name: "Long Dress", value: "longDress", img: "images/longdress.jpg" }
-  ],
-  fullbody: [
-    { name: "Overalls", value: "overalls", img: "images/overalls.jpg" },
-    { name: "Playsuit", value: "playsuit", img: "images/playsuit.jpg" },
-    { name: "Suit", value: "suit", img: "images/suit.jpg" }
-  ]
+  dresses: [],
+  fullbody: []
 };
 
-// Hoodie Substyles
 const hoodieStyles = [
   { name: "Pullover Hoodie", value: "hoodiePullover", img: "images/hoodie-pullover.jpg" },
   { name: "Zip-Up Hoodie", value: "hoodieZip", img: "images/hoodie-zip.jpg" },
   { name: "Oversized Hoodie", value: "hoodieOversized", img: "images/hoodie-oversized.jpg" }
 ];
 
-// Show main categories and styles
 function showStyles(category) {
+  console.log("Category selected:", category);
   document.getElementById('category-section').style.display = 'none';
+
   const container = document.getElementById('style-options');
   container.innerHTML = '';
 
@@ -58,7 +48,6 @@ function showStyles(category) {
   document.getElementById('style-section').style.display = 'block';
 }
 
-// Show hoodie substyle options
 function showHoodieSubStyles() {
   const container = document.getElementById('style-options');
   container.innerHTML = '';
@@ -85,7 +74,6 @@ function showHoodieSubStyles() {
   document.getElementById('style-section').style.display = 'block';
 }
 
-// Display measurement form
 function showMeasurements(styleValue) {
   if (styleValue === "hoodie") {
     showHoodieSubStyles();
@@ -99,18 +87,22 @@ function showMeasurements(styleValue) {
   renderMeasurementFields(styleValue);
 }
 
-// Return to category screen
 function goBackToCategories() {
+  document.getElementById('pattern-output-section').style.display = 'none';
   document.getElementById('measurement-section').style.display = 'none';
   document.getElementById('style-section').style.display = 'none';
   document.getElementById('category-section').style.display = 'block';
 }
 
-// Render fields for hoodie measurements
+function goBackToMeasurements() {
+  document.getElementById('pattern-output-section').style.display = 'none';
+  document.getElementById('measurement-section').style.display = 'block';
+}
+
 function renderMeasurementFields(style) {
   const fields = {
     neck: "Neck Circumference (cm)",
-    shoulder: "Shoulder Width (cm)",
+    shoulder: "Shoulder Length (cm)",
     chest: "Chest Circumference (cm)",
     armLength: "Arm Length (cm)",
     bicep: "Bicep Circumference (cm)",
@@ -123,17 +115,8 @@ function renderMeasurementFields(style) {
   };
 
   const hoodieMeasurements = [
-    "neck",
-    "shoulder",
-    "chest",
-    "armLength",
-    "bicep",
-    "wrist",
-    "hoodieLength",
-    "waist",
-    "hip",
-    "neckHeight",
-    "headHeight"
+    "neck", "shoulder", "chest", "armLength", "bicep",
+    "wrist", "hoodieLength", "waist", "hip", "neckHeight", "headHeight"
   ];
 
   const container = document.getElementById('measurement-fields');
@@ -154,53 +137,55 @@ function renderMeasurementFields(style) {
   }
 }
 
-// Handle form submission
-document.getElementById('form').addEventListener('submit', function (e) {
-  e.preventDefault();
+// FORM HANDLER (no Flask)
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById('form').addEventListener('submit', function (e) {
+    e.preventDefault();
 
-  // Gather all measurement inputs
-  const formElements = document.querySelectorAll('#measurement-fields input');
-  const measurements = {};
+    const formElements = document.querySelectorAll('#measurement-fields input');
+    const measurements = {};
 
-  formElements.forEach(input => {
-    const key = input.name;
-    const value = parseFloat(input.value);
-    if (!isNaN(value)) {
-      measurements[key] = value;
-    }
+    formElements.forEach(input => {
+      const key = input.name;
+      const value = parseFloat(input.value);
+      if (!isNaN(value)) {
+        measurements[key] = value;
+      }
+    });
+
+    const data = [
+      {
+        "Pattern Piece": "Front Panel",
+        "Dimensions": `${measurements.chest || 0} x ${measurements.hoodieLength || 0} cm`,
+        "Cutting Notes": "Cut 1 on fold",
+        "Grainline": "Vertical",
+        "Notches": "Shoulder, Side Seam"
+      },
+      {
+        "Pattern Piece": "Sleeve",
+        "Dimensions": `${measurements.armLength || 0} x ${measurements.bicep || 0} cm`,
+        "Cutting Notes": "Cut 2",
+        "Grainline": "Along arm",
+        "Notches": "Armhole"
+      }
+    ];
+
+    document.getElementById('measurement-section').style.display = 'none';
+    document.getElementById('pattern-output-section').style.display = 'block';
+
+    const tbody = document.querySelector('#pattern-table tbody');
+    tbody.innerHTML = '';
+
+    data.forEach(piece => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${piece["Pattern Piece"]}</td>
+        <td>${piece["Dimensions"]}</td>
+        <td>${piece["Cutting Notes"]}</td>
+        <td>${piece["Grainline"]}</td>
+        <td>${piece["Notches"]}</td>
+      `;
+      tbody.appendChild(row);
+    });
   });
-
-  // Send the measurements to Flask backend
-  fetch('/generate', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(measurements)
-  })
-    .then(data => {
-  console.log("Pattern Data:", data);
-
-  // Hide the form and show the pattern output
-  document.getElementById('measurement-section').style.display = 'none';
-  document.getElementById('pattern-output-section').style.display = 'block';
-
-  const tbody = document.querySelector('#pattern-table tbody');
-  tbody.innerHTML = '';
-
-  data.forEach(piece => {
-    const row = document.createElement('tr');
-    row.innerHTML = `
-      <td>${piece["Pattern Piece"]}</td>
-      <td>${piece["Dimensions"] || piece["Dimensions (W x H, cm)"]}</td>
-      <td>${piece["Cutting Notes"] || "—"}</td>
-      <td>${piece["Grainline"] || "—"}</td>
-      <td>${piece["Notches"] || "—"}</td>
-    `;
-    tbody.appendChild(row);
-  });
-      function goBackToMeasurements() {
-  document.getElementById('pattern-output-section').style.display = 'none';
-  document.getElementById('measurement-section').style.display = 'block';
-}
-})
+});
