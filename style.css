@@ -1,74 +1,64 @@
-/* Reset and base styles */
+/* Base Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body {
   font-family: Arial, sans-serif;
-  margin: 0;
   padding: 20px;
-  background-color: #f4f4f4;
+  background-color: #f7f7f7;
   color: #333;
 }
 
+/* Headings */
 h1, h2, h3 {
-  text-align: center;
   margin-bottom: 20px;
-}
-
-/* Section layout */
-section {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 20px;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
 
 /* Category Grid */
-.category-grid {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  gap: 15px;
-}
-
-.category-grid button {
-  padding: 15px 30px;
-  font-size: 16px;
-  cursor: pointer;
-  background-color: #4682B4;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  transition: background 0.3s ease;
-}
-
-.category-grid button:hover {
-  background-color: #315f86;
-}
-
-/* Style grid */
+.category-grid,
 .style-grid {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
   gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
 }
 
+button {
+  padding: 10px 20px;
+  background-color: #3366cc;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #264d99;
+}
+
+/* Style Cards */
 .style-container {
   text-align: center;
+  max-width: 150px;
 }
 
 .style-image {
-  width: 120px;
-  height: 120px;
-  object-fit: cover;
+  width: 100%;
+  height: auto;
   border-radius: 6px;
-  border: 2px solid #ccc;
   cursor: pointer;
-  transition: transform 0.3s ease;
+  transition: transform 0.2s;
+  border: 2px solid transparent;
 }
 
 .style-image:hover {
   transform: scale(1.05);
+  border-color: #3366cc;
 }
 
 .style-label {
@@ -76,7 +66,12 @@ section {
   font-weight: bold;
 }
 
-/* Measurement form */
+/* Measurement Form */
+#form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
 .measure {
   margin-bottom: 15px;
 }
@@ -84,7 +79,36 @@ section {
 .measure label {
   display: block;
   margin-bottom: 5px;
+  font-weight: 600;
 }
 
 .measure input {
-  width: 10
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Pattern Output Table */
+#pattern-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+#pattern-table th,
+#pattern-table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+#pattern-table th {
+  background-color: #eee;
+}
+
+/* SVG Viewer */
+svg {
+  margin: 20px auto;
+  display: block;
+  background
