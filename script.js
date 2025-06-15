@@ -162,7 +162,7 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
       tbody.appendChild(row);
     });
-
+    console.log("LAYPLAN DATA", data);
     drawPattern(data);
   });
 });
