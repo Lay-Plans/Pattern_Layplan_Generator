@@ -162,7 +162,6 @@ document.addEventListener("DOMContentLoaded", () => {
         <td>${piece.Notches || "—"}</td>
       `;
 
-      `;
       tbody.appendChild(row);
     });
     console.log("LAYPLAN DATA", data);
