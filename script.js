@@ -1,4 +1,4 @@
-console.log("script.js is running");
+console.log("✅ script.js is loaded");
 
 const styles = {
   tops: [
@@ -16,9 +16,19 @@ const hoodieStyles = [
 ];
 
 function showStyles(category) {
+  console.log("Category selected:", category);
+  document.getElementById('category-section').style.display = 'none';
+  document.getElementById('style-section').style.display = 'block';
+
   const container = document.getElementById('style-options');
   container.innerHTML = '';
-  document.getElementById('category-section').style.display = 'none';
+
+  const styles = {
+    tops: [{ name: "Hoodie", value: "hoodie", img: "images/hoodie.jpg" }],
+    bottoms: [{ name: "Trousers", value: "trousers", img: "images/trousers.jpg" }],
+    dresses: [],
+    fullbody: []
+  };
 
   styles[category].forEach(style => {
     const div = document.createElement('div');
@@ -38,6 +48,8 @@ function showStyles(category) {
     div.appendChild(label);
     container.appendChild(div);
   });
+}
+
 
   document.getElementById('style-section').style.display = 'block';
 }
@@ -199,3 +211,4 @@ function drawPattern(data) {
     x += w + padding;
   });
 }
+<script src="script.js"></script>
