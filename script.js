@@ -178,18 +178,54 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function drawPattern(data) {
   const svg = document.getElementById('pattern-svg');
-  svg.innerHTML = '';
-  const pageW = 841, padding = 10, rowH = 150;
-  let x = padding, y = 40, scale = 3.5;
+  svg.innerHTML = ''; // Clear any existing drawings
+
+  const maxRowWidth = 1470; // Fabric width in mm (e.g. 150 cm)
+  const padding = 10;       // Space between pattern pieces
+  const rowSpacing = 30;    // Vertical space between rows
+  const scale = 10;         // Scale: 1 cm = 10 mm in SVG units
+
+  let x = padding;
+  let y = 40;
+  let rowHeight = 0;
 
   data.forEach(piece => {
-    const w = piece.W * scale;
-    const h = piece.H * scale;
+    const width = (piece.W || 0) * scale;
+    const height = (piece.H || 0) * scale;
 
-    if (x + w + padding > pageW) {
-      x = padding;
-      y += rowH + 30;
+    // Check if the piece fits in the current row
+    if (x + width + padding > maxRowWidth) {
+      x = padding;                 // Reset x to start of next row
+      y += rowHeight + rowSpacing; // Move down to new row
+      rowHeight = 0;               // Reset row height tracker
     }
+
+    // Create rectangle for the pattern piece
+    const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+    rect.setAttribute("x", x);
+    rect.setAttribute("y", y);
+    rect.setAttribute("width", width);
+    rect.setAttribute("height", height);
+    rect.setAttribute("fill", "#d8eaff");
+    rect.setAttribute("stroke", "#000");
+
+    // Add label above the piece
+    const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    label.setAttribute("x", x + 5);
+    label.setAttribute("y", y - 5);
+    label.setAttribute("font-size", "12");
+    label.textContent = piece.Pattern;
+
+    // Append the elements to the SVG
+    svg.appendChild(rect);
+    svg.appendChild(label);
+
+    // Advance x for the next piece and update the tallest item in this row
+    x += width + padding;
+    rowHeight = Math.max(rowHeight, height);
+  });
+}
+
 
     const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
     rect.setAttribute("x", x);
