@@ -2,65 +2,40 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Lay Plan Generator</title>
+  <title>Hoodie Lay Plan Generator</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- SECTION 1: Category Selection -->
-  <section id="category-section">
-    <h1>Select a Garment Category</h1>
-    <div class="category-grid">
-      <button onclick="showStyles('tops')">Tops</button>
-      <button onclick="showStyles('bottoms')">Bottoms</button>
-      <button onclick="showStyles('dresses')">Dresses</button>
-      <button onclick="showStyles('fullbody')">Full Body</button>
-    </div>
-  </section>
-
-  <!-- SECTION 2: Style Selection -->
-  <section id="style-section" style="display: none;">
-    <h2>Choose a Style</h2>
-    <div class="style-grid" id="style-options"></div>
-    <button onclick="goBackToCategories()">← Back</button>
-  </section>
-
-  <!-- SECTION 3: Measurement Form -->
-  <section id="measurement-section" style="display: none;">
-    <h2>Enter Your Measurements</h2>
+  <!-- User measurement form -->
+  <section id="measurement-section">
+    <h2>Enter Your Measurements (cm)</h2>
     <form id="form">
-      <div id="measurement-fields"></div>
+      <label>Chest: <input name="chest" type="number" required></label>
+      <label>Shoulder Length: <input name="shoulder" type="number" required></label>
+      <label>Armhole Depth: <input name="armholeDepth" type="number" required></label>
+      <label>Neck Depth: <input name="neckDepth" type="number" required></label>
+      <label>Bodice Length: <input name="bodiceLength" type="number" required></label>
       <button type="submit">Generate Pattern</button>
     </form>
-    <button onclick="goBackToCategories()">← Back</button>
   </section>
 
-  <!-- SECTION 4: Pattern Output -->
-  <section id="pattern-output-section" style="display: none;">
-    <h2>Generated Pattern Pieces</h2>
-    <div class="button-group">
-      <button onclick="goBackToMeasurements()">← Back to Measurements</button>
-      <button onclick="goBackToCategories()">← Start Over</button>
-    </div>
-    <table id="pattern-table">
-      <thead>
-        <tr>
-          <th>Pattern Piece</th>
-          <th>Dimensions</th>
-          <th>Cutting Notes</th>
-          <th>Grainline</th>
-          <th>Notches</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-    <h3>Pattern Layout (A0 Scale)</h3>
+  <!-- SVG area for lay plan -->
+  <section id="pattern-output-section" style="display:none;">
     <svg id="pattern-svg"
-         width="841"
-         height="1189"
-         viewBox="0 0 841 1189"
+         width="1000" height="1200"
+         viewBox="0 0 1000 1200"
          xmlns="http://www.w3.org/2000/svg"
-         style="border:1px solid #ccc; background:#fff; margin-top: 20px;"></svg>
+         style="border:1px solid #ccc; background:#fff; margin-top:20px;">
+      <defs>
+        <marker id="arrowStart" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+          <path d="M5,0 L0,3 L5,6" fill="none" stroke="#000"/>
+        </marker>
+        <marker id="arrowEnd" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+          <path d="M0,0 L5,3 L0,6" fill="none" stroke="#000"/>
+        </marker>
+      </defs>
+    </svg>
   </section>
 
   <script src="script.js"></script>
