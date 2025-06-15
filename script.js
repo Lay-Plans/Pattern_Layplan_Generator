@@ -135,15 +135,16 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     const data = [
-      { Pattern: "Front Panel", W: measurements.chest, H: measurements.hoodieLength },
-      { Pattern: "Back Panel", W: measurements.chest, H: measurements.hoodieLength },
-      { Pattern: "Sleeve", W: measurements.armLength, H: measurements.bicep },
-      { Pattern: "Cuff", W: (measurements.wrist || 0) * 0.9, H: 8 },
-      { Pattern: "Waistband", W: (measurements.hip || 0) * 0.9, H: 10 },
-      { Pattern: "Hood Side", W: (measurements.neckHeight || 0) * 2, H: measurements.headHeight },
-      { Pattern: "Hood Centre Strip", W: 10, H: measurements.headHeight },
-      { Pattern: "Pocket", W: (measurements.chest || 0) * 0.6, H: 20 }
-    ];
+  { Pattern: "Front Panel", W: measurements.chest, H: measurements.hoodieLength },
+  { Pattern: "Back Panel", W: measurements.chest, H: measurements.hoodieLength },
+  { Pattern: "Side Panel", W: (measurements.hip || 0) * 0.25, H: measurements.hoodieLength, Cutting: "Cut 2", Grainline: "Vertical", Notches: "Side Seam" },
+  { Pattern: "Sleeve", W: measurements.armLength, H: measurements.bicep },
+  { Pattern: "Cuff", W: (measurements.wrist || 0) * 0.9, H: 8 },
+  { Pattern: "Waistband", W: (measurements.hip || 0) * 0.9, H: 10 },
+  { Pattern: "Hood Side", W: (measurements.neckHeight || 0) * 2, H: measurements.headHeight },
+  { Pattern: "Hood Centre Strip", W: 10, H: measurements.headHeight },
+  { Pattern: "Pocket", W: (measurements.chest || 0) * 0.6, H: 20 }
+]; 
 
     document.getElementById('measurement-section').style.display = 'none';
     document.getElementById('pattern-output-section').style.display = 'block';
@@ -156,9 +157,11 @@ document.addEventListener("DOMContentLoaded", () => {
       row.innerHTML = `
         <td>${piece.Pattern}</td>
         <td>${piece.W.toFixed(1)} x ${piece.H.toFixed(1)} cm</td>
-        <td>Cut 1</td>
-        <td>—</td>
-        <td>—</td>
+        <td>${piece.Cutting || "Cut 1"}</td>
+        <td>${piece.Grainline || "—"}</td>
+        <td>${piece.Notches || "—"}</td>
+      `;
+
       `;
       tbody.appendChild(row);
     });
