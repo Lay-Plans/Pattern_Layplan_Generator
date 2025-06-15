@@ -160,9 +160,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <td>${piece.Cutting || "Cut 1"}</td>
         <td>${piece.Grainline || "—"}</td>
         <td>${piece.Notches || "—"}</td>
-      `;
-
-      tbody.appendChild(row);
+      `tbody.appendChild(row);
     });
     console.log("LAYPLAN DATA", data);
     drawPattern(data);
