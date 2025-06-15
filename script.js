@@ -1,3 +1,5 @@
+// script.js
+
 console.log("script.js is running");
 
 const styles = {
@@ -114,7 +116,6 @@ function renderMeasurementFields(style) {
   };
 
   const hoodieMeasurements = Object.keys(fields);
-
   const container = document.getElementById('measurement-fields');
   container.innerHTML = '';
 
@@ -137,7 +138,6 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById('form').addEventListener('submit', function (e) {
     e.preventDefault();
 
-    // ✅ Capture measurements
     const formElements = document.querySelectorAll('#measurement-fields input');
     const measurements = {};
     formElements.forEach(input => {
@@ -148,108 +148,62 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    console.log("Measurements received:", measurements);
-
-    // ✅ Construct pattern data using measurements
     const data = [
-      {
-        "Pattern Piece": "Front Panel",
-        "Dimensions": `${measurements.chest || 0} x ${measurements.hoodieLength || 0} cm`,
-        "Cutting Notes": "Cut 1 on fold",
-        "Grainline": "Vertical",
-        "Notches": "Shoulder, Side Seam"
-      },
-      {
-        "Pattern Piece": "Back Panel",
-        "Dimensions": `${measurements.chest || 0} x ${measurements.hoodieLength || 0} cm`,
-        "Cutting Notes": "Cut 1 on fold",
-        "Grainline": "Vertical",
-        "Notches": "Shoulder, Side Seam"
-      },
-      {
-        "Pattern Piece": "Sleeve",
-        "Dimensions": `${measurements.armLength || 0} x ${measurements.bicep || 0} cm`,
-        "Cutting Notes": "Cut 2",
-        "Grainline": "Along arm",
-        "Notches": "Armhole"
-      },
-      {
-        "Pattern Piece": "Cuff",
-        "Dimensions": `${(measurements.wrist || 0) * 0.9} x 8 cm`,
-        "Cutting Notes": "Cut 2",
-        "Grainline": "Stretch direction",
-        "Notches": "-"
-      },
-      {
-        "Pattern Piece": "Waistband",
-        "Dimensions": `${(measurements.hip || 0) * 0.9} x 10 cm`,
-        "Cutting Notes": "Cut 1",
-        "Grainline": "Stretch direction",
-        "Notches": "-"
-      },
-      {
-        "Pattern Piece": "Hood Side",
-        "Dimensions": `${(measurements.neckHeight || 0) * 2} x ${measurements.headHeight || 0} cm`,
-        "Cutting Notes": "Cut 2",
-        "Grainline": "Vertical",
-        "Notches": "Back seam"
-      },
-      {
-        "Pattern Piece": "Hood Centre Strip",
-        "Dimensions": `10 x ${measurements.headHeight || 0} cm`,
-        "Cutting Notes": "Cut 1",
-        "Grainline": "Long edge",
-        "Notches": "Centre front, back"
-      },
-      {
-        "Pattern Piece": "Pocket",
-        "Dimensions": `${(measurements.chest || 0) * 0.6} x 20 cm`,
-        "Cutting Notes": "Cut 1",
-        "Grainline": "Vertical",
-        "Notches": "-"
-      }
+      { Pattern: "Front Panel", W: measurements.chest, H: measurements.hoodieLength },
+      { Pattern: "Back Panel", W: measurements.chest, H: measurements.hoodieLength },
+      { Pattern: "Sleeve", W: measurements.armLength, H: measurements.bicep },
+      { Pattern: "Cuff", W: (measurements.wrist || 0) * 0.9, H: 8 },
+      { Pattern: "Waistband", W: (measurements.hip || 0) * 0.9, H: 10 },
+      { Pattern: "Hood Side", W: (measurements.neckHeight || 0) * 2, H: measurements.headHeight },
+      { Pattern: "Hood Centre", W: 10, H: measurements.headHeight },
+      { Pattern: "Pocket", W: (measurements.chest || 0) * 0.6, H: 20 }
     ];
-
-    // ✅ Update display
-    document.getElementById('measurement-section').style.display = 'none';
-    document.getElementById('pattern-output-section').style.display = 'block';
 
     const tbody = document.querySelector('#pattern-table tbody');
     tbody.innerHTML = '';
-
     data.forEach(piece => {
       const row = document.createElement('tr');
       row.innerHTML = `
-        <td>${piece["Pattern Piece"]}</td>
-        <td>${piece["Dimensions"]}</td>
-        <td>${piece["Cutting Notes"]}</td>
-        <td>${piece["Grainline"]}</td>
-        <td>${piece["Notches"]}</td>
+        <td>${piece.Pattern}</td>
+        <td>${piece.W.toFixed(1)} x ${piece.H.toFixed(1)} cm</td>
+        <td>See notes</td>
+        <td>-</td>
+        <td>-</td>
       `;
       tbody.appendChild(row);
     });
 
+    document.getElementById('measurement-section').style.display = 'none';
+    document.getElementById('pattern-output-section').style.display = 'block';
     drawPattern(data);
   });
 });
 
-// ✅ Draw SVG Lay Plan
 function drawPattern(data) {
   const svg = document.getElementById('pattern-svg');
-  svg.innerHTML = ''; // Clear old drawings
+  svg.innerHTML = '';
 
-  let xOffset = 10;
+  const svgWidth = 841;
+  const svgHeight = 1189;
+  const padding = 10;
+  const rowHeight = 200;
+  const scale = 3.5;
+
+  let xOffset = padding;
+  let yOffset = 40;
 
   data.forEach(piece => {
-    const match = piece.Dimensions.match(/(\d+(?:\.\d+)?)\s*x\s*(\d+(?:\.\d+)?)/);
-    if (!match) return;
+    const width = piece.W * scale;
+    const height = piece.H * scale;
 
-    const width = parseFloat(match[1]) * 10;   // cm to mm scale
-    const height = parseFloat(match[2]) * 10;
+    if (xOffset + width + padding > svgWidth) {
+      xOffset = padding;
+      yOffset += rowHeight;
+    }
 
     const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
     rect.setAttribute("x", xOffset);
-    rect.setAttribute("y", 40);
+    rect.setAttribute("y", yOffset);
     rect.setAttribute("width", width);
     rect.setAttribute("height", height);
     rect.setAttribute("fill", "#d8eaff");
@@ -257,13 +211,13 @@ function drawPattern(data) {
 
     const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
     label.setAttribute("x", xOffset + 5);
-    label.setAttribute("y", 30);
+    label.setAttribute("y", yOffset - 5);
     label.setAttribute("font-size", "12");
-    label.textContent = piece["Pattern Piece"];
+    label.textContent = piece.Pattern;
 
     svg.appendChild(rect);
     svg.appendChild(label);
 
-    xOffset += width + 20;
+    xOffset += width + padding;
   });
 }
