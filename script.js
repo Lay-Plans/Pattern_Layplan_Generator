@@ -100,6 +100,8 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!isNaN(v)) measurements[input.name] = v;
     });
 
+    console.log("📏 Passed measurements:", measurements);
+
     const data = [
       { Pattern:"Front Panel", W: measurements.chest, H: measurements.hoodieLength },
       { Pattern:"Back Panel", W: measurements.chest, H: measurements.hoodieLength },
@@ -116,11 +118,12 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById('pattern-output-section').style.display = 'block';
     const tbody = document.querySelector('#pattern-table tbody');
     tbody.innerHTML = '';
+      const tbody = document.querySelector('#pattern-table tbody');
+    tbody.innerHTML = '';
     data.forEach(piece => {
       const row = document.createElement('tr');
       row.innerHTML = `<td>${piece.Pattern}</td><td>${piece.W.toFixed(1)} x ${piece.H.toFixed(1)} cm</td><td>${piece.Cutting||"Cut 1"}</td><td>${piece.Grainline||"—"}</td><td>${piece.Notches||"—"}</td>`;
       tbody.appendChild(row);
-    });
 
     drawPattern(data, measurements);
   });
@@ -129,6 +132,8 @@ document.addEventListener("DOMContentLoaded", () => {
 // ——— Custom Draw Functions ———
 
 function drawFrontBodice(svg, x, y, scale, meas) {
+  console.log("Measurements being passed to drawFrontBodice:", meas);
+  
   const NW = meas.chest * .25 * scale;
   const SL = meas.shoulder * scale;
   const SD = SL * .15;
@@ -163,30 +168,45 @@ function drawFrontBodice(svg, x, y, scale, meas) {
 
 function drawPattern(data, meas) {
   const svg = document.getElementById('pattern-svg');
-  svg.querySelectorAll('path,rect,line').forEach(el => {
-    if (!el.closest('defs')) el.remove();
-  });
+  svg.innerHTML = ''; // Clear previous
+
   const scale = 10;
-  let x = 20, y = 20, rowHeight = 0;
+  let x = 20;
+  let y = 20;
+  let rowHeight = 0;
+
+  // 👉 Draw curved front bodice first
   drawFrontBodice(svg, x, y, scale, meas);
-  x += meas.chest * .25 * scale + meas.shoulder * scale + 40;
-  let maxW = 1470;
+
+  // Offset remaining layout to the right
+  x += (meas.chest * 0.25 + meas.shoulder) * scale + 40;
 
   data.forEach(piece => {
-    const w = (piece.W||0) * scale;
-    const h = (piece.H||0) * scale;
-    if (x + w + 10 > maxW) { x = 20; y += rowHeight + 30; rowHeight = 0; }
-    const r = document.createElementNS(svg.namespaceURI,"rect");
-    r.setAttribute("x", x); r.setAttribute("y", y);
-    r.setAttribute("width", w); r.setAttribute("height", h);
-    r.setAttribute("fill", "#d8eaff");
-    r.setAttribute("stroke", "#000");
-    svg.appendChild(r);
-    const l = document.createElementNS(svg.namespaceURI,"text");
-    l.setAttribute("x", x+4); l.setAttribute("y", y-4);
-    l.setAttribute("font-size","12");
-    l.textContent = piece.Pattern;
-    svg.appendChild(l);
+    const w = (piece.W || 0) * scale;
+    const h = (piece.H || 0) * scale;
+    if (x + w + 10 > 1470) {
+      x = 20;
+      y += rowHeight + 30;
+      rowHeight = 0;
+    }
+
+    const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+    rect.setAttribute("x", x);
+    rect.setAttribute("y", y);
+    rect.setAttribute("width", w);
+    rect.setAttribute("height", h);
+    rect.setAttribute("fill", "#d8eaff");
+    rect.setAttribute("stroke", "#000");
+
+    const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    label.setAttribute("x", x + 5);
+    label.setAttribute("y", y - 5);
+    label.setAttribute("font-size", "12");
+    label.textContent = piece.Pattern;
+
+    svg.appendChild(rect);
+    svg.appendChild(label);
+
     x += w + 10;
     rowHeight = Math.max(rowHeight, h);
   });
