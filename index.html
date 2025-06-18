@@ -1,31 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Hoodie Lay Plan Generator</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- User measurement form -->
-  <section id="measurement-section">
-    <h2>Enter Your Measurements (cm)</h2>
-    <form id="form">
-      <label>Chest: <input name="chest" type="number" required></label>
-      <label>Shoulder Length: <input name="shoulder" type="number" required></label>
-      <label>Armhole Depth: <input name="armholeDepth" type="number" required></label>
-      <label>Neck Depth: <input name="neckDepth" type="number" required></label>
-      <label>Bodice Length: <input name="bodiceLength" type="number" required></label>
-      <button type="submit">Generate Pattern</button>
-    </form>
+  <!-- SECTION 1: Category -->
+  <section id="category-section">
+    <h1>Select a Garment Category</h1>
+    <div class="category-grid">
+      <button onclick="showStyles('tops')">Tops</button>
+    </div>
   </section>
 
-  <!-- SVG area for lay plan -->
-  <section id="pattern-output-section" style="display:none;">
-    <svg id="pattern-svg"
-         width="1000" height="1200"
-         viewBox="0 0 1000 1200"
-         xmlns="http://www.w3.org/2000/svg"
+  <!-- SECTION 2: Style -->
+  <section id="style-section" style="display:none">
+    <h2>Choose a Style</h2>
+    <div id="style-options" class="style-grid"></div>
+    <button onclick="goBackToCategories()">← Back</button>
+  </section>
+
+  <!-- SECTION 3: Measurements -->
+  <section id="measurement-section" style="display:none">
+    <h2>Enter Your Measurements (cm)</h2>
+    <form id="form">
+      <div id="measurement-fields"></div>
+      <button type="submit">Generate Pattern</button>
+    </form>
+    <button onclick="goBackToCategories()">← Back</button>
+  </section>
+
+  <!-- SECTION 4: Pattern Output -->
+  <section id="pattern-output-section" style="display:none">
+    <h2>Generated Pattern Pieces</h2>
+    <div class="button-group">
+      <button onclick="goBackToMeasurements()">← Back to Measurements</button>
+      <button onclick="goBackToCategories()">← Start Over</button>
+    </div>
+    <svg id="pattern-svg" width="1500" height="1200" xmlns="http://www.w3.org/2000/svg"
          style="border:1px solid #ccc; background:#fff; margin-top:20px;">
       <defs>
         <marker id="arrowStart" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
