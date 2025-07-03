@@ -1,35 +1,33 @@
-console.log("✅ JS file is running");
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Hoodie Lay Plan Generator</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <title>Lay Plan Generator</title>
+  <link rel="stylesheet" href="static/style.css">
 </head>
 <body>
 
   <!-- SECTION 1: Category Selection -->
-<section id="category-section">
-  <h1>Select a Garment Category</h1>
-  <div class="category-grid">
-    <button onclick="showStyles('tops')">Tops</button>
-    <button onclick="showStyles('bottoms')">Bottoms</button>
-    <button onclick="showStyles('dresses')">Dresses</button>
-    <button onclick="showStyles('fullbody')">Full Body</button>
-  </div>
-</section>
+  <section id="category-section">
+    <h1>Select a Garment Category</h1>
+    <div class="category-grid">
+      <button onclick="showStyles('tops')">Tops</button>
+      <button onclick="showStyles('bottoms')">Bottoms</button>
+      <button onclick="showStyles('dresses')">Dresses</button>
+      <button onclick="showStyles('fullbody')">Full Body</button>
+    </div>
+  </section>
 
-  <!-- SECTION 2: Style -->
-  <section id="style-section" style="display:none">
+  <!-- SECTION 2: Style Selection -->
+  <section id="style-section" style="display: none;">
     <h2>Choose a Style</h2>
-    <div id="style-options" class="style-grid"></div>
+    <div class="style-grid" id="style-options"></div>
     <button onclick="goBackToCategories()">← Back</button>
   </section>
 
-  <!-- SECTION 3: Measurements -->
-  <section id="measurement-section" style="display:none">
-    <h2>Enter Your Measurements (cm)</h2>
+  <!-- SECTION 3: Measurement Form -->
+  <section id="measurement-section" style="display: none;">
+    <h2>Enter Your Measurements</h2>
     <form id="form">
       <div id="measurement-fields"></div>
       <button type="submit">Generate Pattern</button>
@@ -38,25 +36,36 @@ console.log("✅ JS file is running");
   </section>
 
   <!-- SECTION 4: Pattern Output -->
-  <section id="pattern-output-section" style="display:none">
-    <h2>Generated Pattern Pieces</h2>
-    <div class="button-group">
-      <button onclick="goBackToMeasurements()">← Back to Measurements</button>
-      <button onclick="goBackToCategories()">← Start Over</button>
-    </div>
-    <svg id="pattern-svg" width="1500" height="1200" xmlns="http://www.w3.org/2000/svg"
-         style="border:1px solid #ccc; background:#fff; margin-top:20px;">
+  <section id="pattern-output-section" style="display: none;">
+    <h2>Pattern Layout</h2>
+    
+    <svg id="pattern-svg" width="1470" height="1000" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <marker id="arrowStart" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
-          <path d="M5,0 L0,3 L5,6" fill="none" stroke="#000"/>
+        <marker id="arrowStart" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto-start-reverse">
+          <path d="M0,5 L10,0 L10,10 Z" fill="#000"/>
         </marker>
-        <marker id="arrowEnd" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
-          <path d="M0,0 L5,3 L0,6" fill="none" stroke="#000"/>
+        <marker id="arrowEnd" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+          <path d="M0,0 L10,5 L0,10 Z" fill="#000"/>
         </marker>
       </defs>
     </svg>
+
+    <table id="pattern-table">
+      <thead>
+        <tr>
+          <th>Pattern Piece</th>
+          <th>Dimensions</th>
+          <th>Cutting Notes</th>
+          <th>Grainline</th>
+          <th>Notches</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <button onclick="goBackToMeasurements()">← Back to Measurements</button>
   </section>
 
-<script src="/static/script.js"></script>
+  <script src="static/script.js"></script>
 </body>
 </html>
