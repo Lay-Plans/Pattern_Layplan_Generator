@@ -25,7 +25,12 @@ function showStyles(category) {
     img.alt = style.name;
     img.className = 'style-image';
     img.onclick = () => showMeasurements(style.value);
-    div.append(img, (() => { const L = document.createElement('div'); L.className='style-label'; L.textContent=style.name; return L })());
+    div.append(img, (() => {
+      const L = document.createElement('div');
+      L.className = 'style-label';
+      L.textContent = style.name;
+      return L;
+    })());
     container.appendChild(div);
   });
 }
@@ -38,9 +43,16 @@ function showHoodieSubStyles() {
     const div = document.createElement('div');
     div.className = 'style-container';
     const img = document.createElement('img');
-    img.src = style.img; img.alt = style.name; img.className = 'style-image';
+    img.src = style.img;
+    img.alt = style.name;
+    img.className = 'style-image';
     img.onclick = () => showMeasurements(style.value);
-    div.append(img, (() => { const L = document.createElement('div'); L.className='style-label'; L.textContent=style.name; return L })());
+    div.append(img, (() => {
+      const L = document.createElement('div');
+      L.className = 'style-label';
+      L.textContent = style.name;
+      return L;
+    })());
     container.appendChild(div);
   });
 }
@@ -118,12 +130,11 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById('pattern-output-section').style.display = 'block';
     const tbody = document.querySelector('#pattern-table tbody');
     tbody.innerHTML = '';
-      const tbody = document.querySelector('#pattern-table tbody');
-    tbody.innerHTML = '';
     data.forEach(piece => {
       const row = document.createElement('tr');
       row.innerHTML = `<td>${piece.Pattern}</td><td>${piece.W.toFixed(1)} x ${piece.H.toFixed(1)} cm</td><td>${piece.Cutting||"Cut 1"}</td><td>${piece.Grainline||"—"}</td><td>${piece.Notches||"—"}</td>`;
       tbody.appendChild(row);
+    });
 
     drawPattern(data, measurements);
   });
@@ -156,7 +167,7 @@ function drawFrontBodice(svg, x, y, scale, meas) {
   path.setAttribute("stroke", "#000");
   svg.appendChild(path);
 
-  const cx = x + NW/2;
+  const cx = x + NW / 2;
   const line = document.createElementNS(svg.namespaceURI, "line");
   line.setAttribute("x1", cx); line.setAttribute("y1", y + 10);
   line.setAttribute("x2", cx); line.setAttribute("y2", y + BL - 10);
