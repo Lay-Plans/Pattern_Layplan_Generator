@@ -18,7 +18,7 @@ h1, h2, h3 {
   text-align: center;
 }
 
-/* Category Grid */
+/* Category and Style Grid */
 .category-grid,
 .style-grid {
   display: flex;
@@ -28,6 +28,7 @@ h1, h2, h3 {
   margin-bottom: 30px;
 }
 
+/* Buttons */
 button {
   padding: 10px 20px;
   background-color: #3366cc;
@@ -105,10 +106,21 @@ button:hover {
 
 #pattern-table th {
   background-color: #eee;
+  font-weight: bold;
 }
 
 /* SVG Viewer */
 svg {
   margin: 20px auto;
   display: block;
-  background
+  background: white;
+  border: 1px solid #ccc;
+  max-width: 100%;
+}
+
+/* Pattern Output Section */
+#pattern-output-section {
+  max-width: 960px;
+  margin: 0 auto;
+  padding-top: 20px;
+}
