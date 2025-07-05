@@ -1,1 +1,177 @@
+<!DOCTYPE html>
 
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lay Plan Generator</title>
+  <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+
+  <!-- Loading Overlay -->
+
+  <div id="loading-overlay" class="loading-overlay" style="display: none;">
+    <div class="loading-spinner">
+      <div class="spinner"></div>
+      <p>Generating your pattern...</p>
+    </div>
+  </div>
+
+  <!-- Error Message Container -->
+
+  <div id="error-container" class="error-container" style="display: none;">
+    <div class="error-message">
+      <span class="error-text"></span>
+      <button class="error-close" onclick="hideError()">×</button>
+    </div>
+  </div>
+
+  <!-- Success Message Container -->
+
+  <div id="success-container" class="success-container" style="display: none;">
+    <div class="success-message">
+      <span class="success-text"></span>
+      <button class="success-close" onclick="hideSuccess()">×</button>
+    </div>
+  </div>
+
+  <!-- SECTION 1: Category Selection -->
+
+  <section id="category-section">
+    <div class="header">
+      <h1>Garment Pattern Generator</h1>
+      <p class="subtitle">Create custom patterns for your perfect fit</p>
+    </div>
+    <div class="category-grid">
+      <button class="category-btn" onclick="showStyles('tops')">
+        <span class="btn-icon">👕</span>
+        <span class="btn-text">Tops</span>
+      </button>
+      <button class="category-btn" onclick="showStyles('bottoms')">
+        <span class="btn-icon">👖</span>
+        <span class="btn-text">Bottoms</span>
+      </button>
+      <button class="category-btn" onclick="showStyles('dresses')">
+        <span class="btn-icon">👗</span>
+        <span class="btn-text">Dresses</span>
+      </button>
+      <button class="category-btn" onclick="showStyles('fullbody')">
+        <span class="btn-icon">🧥</span>
+        <span class="btn-text">Full Body</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- SECTION 2: Style Selection -->
+
+  <section id="style-section" style="display: none;">
+    <div class="section-header">
+      <h2>Choose a Style</h2>
+      <p class="section-subtitle">Select the garment style you'd like to create</p>
+    </div>
+    <div class="style-grid" id="style-options"></div>
+    <div class="navigation-buttons">
+      <button class="nav-btn secondary" onclick="goBackToCategories()">← Back to Categories</button>
+    </div>
+  </section>
+
+  <!-- SECTION 3: Measurement Form -->
+
+  <section id="measurement-section" style="display: none;">
+    <div class="section-header">
+      <h2>Enter Your Measurements</h2>
+      <p class="section-subtitle">Provide accurate measurements in centimeters for the best fit</p>
+    </div>
+
+```
+<form id="measurement-form" class="measurement-form">
+  <div id="measurement-fields" class="measurement-grid"></div>
+  
+  <div class="form-footer">
+    <div class="customer-info">
+      <label for="customer-name">Customer Name (Optional)</label>
+      <input type="text" id="customer-name" name="customer-name" placeholder="Enter name for pattern">
+    </div>
+    
+    <div class="form-actions">
+      <button type="button" class="nav-btn secondary" onclick="goBackToStyles()">← Back</button>
+      <button type="submit" class="nav-btn primary">Generate Pattern</button>
+    </div>
+  </div>
+</form>
+```
+
+  </section>
+
+  <!-- SECTION 4: Pattern Output -->
+
+  <section id="pattern-output-section" style="display: none;">
+    <div class="section-header">
+      <h2>Your Pattern is Ready!</h2>
+      <p class="section-subtitle">Pattern pieces and specifications</p>
+    </div>
+
+```
+<!-- Download Section -->
+<div class="download-section">
+  <div class="download-card">
+    <div class="download-info">
+      <h3>Pattern Specification PDF</h3>
+      <p>Complete pattern with measurements, cutting instructions, and construction notes</p>
+    </div>
+    <button id="download-btn" class="download-btn" onclick="downloadPattern()">
+      <span class="download-icon">📄</span>
+      Download PDF
+    </button>
+  </div>
+</div>
+
+<!-- Pattern Visualization -->
+<div class="pattern-visualization">
+  <h3>Pattern Layout Preview</h3>
+  <div class="svg-container">
+    <svg id="pattern-svg" width="100%" height="600" viewBox="0 0 1470 600" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arrowStart" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto-start-reverse">
+          <path d="M0,5 L10,0 L10,10 Z" fill="#000"/>
+        </marker>
+        <marker id="arrowEnd" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+          <path d="M0,0 L10,5 L0,10 Z" fill="#000"/>
+        </marker>
+      </defs>
+    </svg>
+  </div>
+</div>
+
+<!-- Pattern Details Table -->
+<div class="pattern-details">
+  <h3>Pattern Pieces Details</h3>
+  <div class="table-container">
+    <table id="pattern-table">
+      <thead>
+        <tr>
+          <th>Pattern Piece</th>
+          <th>Dimensions</th>
+          <th>Cutting Notes</th>
+          <th>Grainline</th>
+          <th>Notches</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+
+<div class="navigation-buttons">
+  <button class="nav-btn secondary" onclick="goBackToMeasurements()">← Back to Measurements</button>
+  <button class="nav-btn secondary" onclick="startOver()">Create New Pattern</button>
+</div>
+```
+
+  </section>
+
+  <script src="static/script.js"></script>
+
+</body>
+</html>
