@@ -1,4 +1,4 @@
-console.log(“✅ script.js is loaded”);
+alert(“✅ script.js is loaded”);
 
 const styles = {
 tops: [
@@ -15,7 +15,7 @@ const hoodieStyles = [
 ];
 
 function showStyles(category) {
-console.log(“showStyles called with:”, category);
+alert(“showStyles called with: “ + category);
 document.getElementById(‘category-section’).style.display = ‘none’;
 document.getElementById(‘style-section’).style.display = ‘block’;
 const container = document.getElementById(‘style-options’);
@@ -59,7 +59,7 @@ container.appendChild(div);
 }
 
 function showMeasurements(styleValue) {
-console.log(“showMeasurements called with:”, styleValue);
+alert(“showMeasurements called with: “ + styleValue);
 if (styleValue === “hoodie”) {
 showHoodieSubStyles();
 return;
@@ -71,7 +71,7 @@ renderMeasurementFields();
 }
 
 function goBackToCategories() {
-console.log(“goBackToCategories called”);
+alert(“goBackToCategories called”);
 document.getElementById(‘pattern-output-section’).style.display = ‘none’;
 document.getElementById(‘measurement-section’).style.display = ‘none’;
 document.getElementById(‘style-section’).style.display = ‘none’;
@@ -79,23 +79,21 @@ document.getElementById(‘category-section’).style.display = ‘block’;
 }
 
 function goBackToMeasurements() {
-console.log(“goBackToMeasurements called”);
+alert(“goBackToMeasurements called”);
 document.getElementById(‘pattern-output-section’).style.display = ‘none’;
 document.getElementById(‘measurement-section’).style.display = ‘block’;
 }
 
 function startOver() {
-console.log(“startOver called”);
+alert(“startOver called”);
 goBackToCategories();
 }
 
 function downloadPattern() {
-console.log(“downloadPattern called”);
-alert(“Download functionality - PDF would download here”);
+alert(“downloadPattern called - PDF would download here”);
 }
 
 function hideError() {
-console.log(“hideError called”);
 const container = document.getElementById(‘error-container’);
 if (container) {
 container.style.display = ‘none’;
@@ -103,7 +101,6 @@ container.style.display = ‘none’;
 }
 
 function hideSuccess() {
-console.log(“hideSuccess called”);
 const container = document.getElementById(‘success-container’);
 if (container) {
 container.style.display = ‘none’;
@@ -135,13 +132,13 @@ container.appendChild(div);
 }
 
 document.addEventListener(“DOMContentLoaded”, () => {
-console.log(“DOM loaded”);
+alert(“DOM loaded”);
 
 const form = document.getElementById(‘measurement-form’);
 if (form) {
 form.addEventListener(‘submit’, e => {
 e.preventDefault();
-console.log(“Form submitted”);
+alert(“Form submitted”);
 
 ```
   const measurements = {};
@@ -149,8 +146,6 @@ console.log(“Form submitted”);
     const v = parseFloat(input.value);
     if (!isNaN(v)) measurements[input.name] = v;
   });
-
-  console.log("📏 Passed measurements:", measurements);
 
   const data = [
     { Pattern:"Front Panel", W: measurements.chest, H: measurements.hoodieLength },
@@ -182,8 +177,6 @@ console.log(“Form submitted”);
 });
 
 function drawFrontBodice(svg, x, y, scale, meas) {
-console.log(“Measurements being passed to drawFrontBodice:”, meas);
-
 const NW = meas.chest * 0.25 * scale;
 const SL = meas.shoulder * scale;
 const SD = SL * 0.15;
@@ -265,4 +258,4 @@ rowHeight = Math.max(rowHeight, h);
 });
 }
 
-console.log(“✅ Script loaded completely”);
+alert(“✅ Script loaded completely”);
