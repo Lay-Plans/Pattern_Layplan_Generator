@@ -4,7 +4,9 @@ const styles = {
 tops: [
 { name: “Hoodie”, value: “hoodie”, img: “images/hoodie.jpg” }
 ],
-bottoms: [], dresses: [], fullbody: []
+bottoms: [],
+dresses: [],
+fullbody: []
 };
 
 const hoodieStyles = [
@@ -26,12 +28,11 @@ img.src = style.img;
 img.alt = style.name;
 img.className = ‘style-image’;
 img.onclick = () => showMeasurements(style.value);
-div.append(img, (() => {
-const L = document.createElement(‘div’);
-L.className = ‘style-label’;
-L.textContent = style.name;
-return L;
-})());
+const label = document.createElement(‘div’);
+label.className = ‘style-label’;
+label.textContent = style.name;
+div.appendChild(img);
+div.appendChild(label);
 container.appendChild(div);
 });
 }
@@ -48,12 +49,11 @@ img.src = style.img;
 img.alt = style.name;
 img.className = ‘style-image’;
 img.onclick = () => showMeasurements(style.value);
-div.append(img, (() => {
-const L = document.createElement(‘div’);
-L.className = ‘style-label’;
-L.textContent = style.name;
-return L;
-})());
+const label = document.createElement(‘div’);
+label.className = ‘style-label’;
+label.textContent = style.name;
+div.appendChild(img);
+div.appendChild(label);
 container.appendChild(div);
 });
 }
@@ -94,7 +94,6 @@ console.log(“downloadPattern called”);
 alert(“Download functionality - PDF would download here”);
 }
 
-// Missing functions that your HTML calls
 function hideError() {
 console.log(“hideError called”);
 const container = document.getElementById(‘error-container’);
@@ -156,13 +155,13 @@ console.log(“Form submitted”);
   const data = [
     { Pattern:"Front Panel", W: measurements.chest, H: measurements.hoodieLength },
     { Pattern:"Back Panel", W: measurements.chest, H: measurements.hoodieLength },
-    { Pattern:"Side Panel", W: measurements.hip * .25, H: measurements.hoodieLength, Cutting:"Cut 2", Grainline:"Vertical", Notches:"Side Seam" },
+    { Pattern:"Side Panel", W: measurements.hip * 0.25, H: measurements.hoodieLength, Cutting:"Cut 2", Grainline:"Vertical", Notches:"Side Seam" },
     { Pattern:"Sleeve", W: measurements.armLength, H: measurements.bicep },
-    { Pattern:"Cuff", W: measurements.wrist * .9, H: 8 },
-    { Pattern:"Waistband", W: measurements.hip * .9, H: 10 },
+    { Pattern:"Cuff", W: measurements.wrist * 0.9, H: 8 },
+    { Pattern:"Waistband", W: measurements.hip * 0.9, H: 10 },
     { Pattern:"Hood Side", W: measurements.neckHeight * 2, H: measurements.headHeight },
     { Pattern:"Hood Centre Strip", W: 10, H: measurements.headHeight },
-    { Pattern:"Pocket", W: measurements.chest * .6, H: 20 }
+    { Pattern:"Pocket", W: measurements.chest * 0.6, H: 20 }
   ];
 
   document.getElementById('measurement-section').style.display = 'none';
@@ -182,15 +181,13 @@ console.log(“Form submitted”);
 }
 });
 
-// ——— Custom Draw Functions ———
-
 function drawFrontBodice(svg, x, y, scale, meas) {
 console.log(“Measurements being passed to drawFrontBodice:”, meas);
 
-const NW = meas.chest * .25 * scale;
+const NW = meas.chest * 0.25 * scale;
 const SL = meas.shoulder * scale;
-const SD = SL * .15;
-const AH = meas.armLength * .6 * scale;
+const SD = SL * 0.15;
+const AH = meas.armLength * 0.6 * scale;
 const BL = meas.hoodieLength * scale;
 
 const d = [
@@ -211,8 +208,10 @@ svg.appendChild(path);
 
 const cx = x + NW / 2;
 const line = document.createElementNS(svg.namespaceURI, “line”);
-line.setAttribute(“x1”, cx); line.setAttribute(“y1”, y + 10);
-line.setAttribute(“x2”, cx); line.setAttribute(“y2”, y + BL - 10);
+line.setAttribute(“x1”, cx);
+line.setAttribute(“y1”, y + 10);
+line.setAttribute(“x2”, cx);
+line.setAttribute(“y2”, y + BL - 10);
 line.setAttribute(“stroke”, “#000”);
 line.setAttribute(“marker-start”, “url(#arrowStart)”);
 line.setAttribute(“marker-end”, “url(#arrowEnd)”);
@@ -221,17 +220,15 @@ svg.appendChild(line);
 
 function drawPattern(data, meas) {
 const svg = document.getElementById(‘pattern-svg’);
-svg.innerHTML = ‘’; // Clear previous
+svg.innerHTML = ‘’;
 
 const scale = 10;
 let x = 20;
 let y = 20;
 let rowHeight = 0;
 
-// 👉 Draw curved front bodice first
 drawFrontBodice(svg, x, y, scale, meas);
 
-// Offset remaining layout to the right
 x += (meas.chest * 0.25 + meas.shoulder) * scale + 40;
 
 data.forEach(piece => {
