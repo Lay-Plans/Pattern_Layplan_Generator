@@ -133,6 +133,80 @@ container.appendChild(div);
 
 document.addEventListener(“DOMContentLoaded”, () => {
 alert(“DOM loaded”);
+  // Add this code INSIDE your existing DOMContentLoaded event listener,
+// right after the alert(“DOM loaded”); line
+
+// Connect the category buttons to their functions
+const categoryButtons = document.querySelectorAll(’.category-btn’);
+console.log(“Found”, categoryButtons.length, “category buttons”);
+
+categoryButtons.forEach((button, index) => {
+// Map each button to its corresponding category
+const categories = [‘tops’, ‘bottoms’, ‘dresses’, ‘fullbody’];
+const category = categories[index];
+
+```
+console.log(`Attaching click handler to button ${index} for category: ${category}`);
+
+button.addEventListener('click', () => {
+    console.log(`Category button clicked: ${category}`);
+    showStyles(category);
+});
+```
+
+});
+
+// Connect the “Back to Categories” button in the style section
+const backToCategoriesBtn = document.querySelector(’#style-section .nav-btn.secondary’);
+if (backToCategoriesBtn) {
+backToCategoriesBtn.addEventListener(‘click’, () => {
+console.log(“Back to categories button clicked”);
+goBackToCategories();
+});
+} else {
+console.log(“Warning: Back to categories button not found”);
+}
+
+// Connect the “Back” button in the measurement section
+const measurementBackBtn = document.querySelector(’#measurement-section .nav-btn.secondary’);
+if (measurementBackBtn) {
+measurementBackBtn.addEventListener(‘click’, () => {
+console.log(“Back from measurements button clicked”);
+// Go back to style selection
+document.getElementById(‘measurement-section’).style.display = ‘none’;
+document.getElementById(‘style-section’).style.display = ‘block’;
+});
+} else {
+console.log(“Warning: Measurement back button not found”);
+}
+
+// Connect buttons in the pattern output section
+const patternBackBtn = document.querySelector(’#pattern-output-section .nav-btn.secondary’);
+if (patternBackBtn) {
+patternBackBtn.addEventListener(‘click’, () => {
+console.log(“Back to measurements from pattern output clicked”);
+goBackToMeasurements();
+});
+}
+
+const startOverBtn = document.querySelector(’#pattern-output-section .nav-btn.secondary:last-child’);
+if (startOverBtn && startOverBtn !== patternBackBtn) {
+startOverBtn.addEventListener(‘click’, () => {
+console.log(“Start over button clicked”);
+startOver();
+});
+}
+
+// Connect the download button
+const downloadBtn = document.getElementById(‘download-btn’);
+if (downloadBtn) {
+downloadBtn.addEventListener(‘click’, () => {
+console.log(“Download button clicked”);
+downloadPattern();
+});
+}
+
+console.log(“All button handlers have been attached!”);
 
 const form = document.getElementById(‘measurement-form’);
 if (form) {
