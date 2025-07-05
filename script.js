@@ -94,6 +94,23 @@ console.log(“downloadPattern called”);
 alert(“Download functionality - PDF would download here”);
 }
 
+// Missing functions that your HTML calls
+function hideError() {
+console.log(“hideError called”);
+const container = document.getElementById(‘error-container’);
+if (container) {
+container.style.display = ‘none’;
+}
+}
+
+function hideSuccess() {
+console.log(“hideSuccess called”);
+const container = document.getElementById(‘success-container’);
+if (container) {
+container.style.display = ‘none’;
+}
+}
+
 function renderMeasurementFields() {
 const fields = {
 neck: “Neck Circumference (cm)”,
