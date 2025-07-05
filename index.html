@@ -44,19 +44,20 @@
       <p class="subtitle">Create custom patterns for your perfect fit</p>
     </div>
     <div class="category-grid">
-      <button class="category-btn">
+      <!-- Each button has the category-btn class that our JavaScript looks for -->
+      <button class="category-btn" data-category="tops">
         <span class="btn-icon">👕</span>
         <span class="btn-text">Tops</span>
       </button>
-      <button class="category-btn">
+      <button class="category-btn" data-category="bottoms">
         <span class="btn-icon">👖</span>
         <span class="btn-text">Bottoms</span>
       </button>
-      <button class="category-btn">
+      <button class="category-btn" data-category="dresses">
         <span class="btn-icon">👗</span>
         <span class="btn-text">Dresses</span>
       </button>
-      <button class="category-btn">
+      <button class="category-btn" data-category="fullbody">
         <span class="btn-icon">🧥</span>
         <span class="btn-text">Full Body</span>
       </button>
@@ -72,7 +73,7 @@
     </div>
     <div class="style-grid" id="style-options"></div>
     <div class="navigation-buttons">
-      <button class="nav-btn secondary">← Back to Categories</button>
+      <button class="nav-btn secondary" id="back-to-categories-btn">← Back to Categories</button>
     </div>
   </section>
 
@@ -95,7 +96,7 @@
     </div>
     
     <div class="form-actions">
-      <button type="button" class="nav-btn secondary">← Back</button>
+      <button type="button" class="nav-btn secondary" id="back-to-styles-btn">← Back</button>
       <button type="submit" class="nav-btn primary">Generate Pattern</button>
     </div>
   </div>
@@ -164,8 +165,8 @@
 </div>
 
 <div class="navigation-buttons">
-  <button class="nav-btn secondary">← Back to Measurements</button>
-  <button class="nav-btn secondary">Create New Pattern</button>
+  <button class="nav-btn secondary" id="back-to-measurements-btn">← Back to Measurements</button>
+  <button class="nav-btn secondary" id="start-over-btn">Create New Pattern</button>
 </div>
 ```
 
